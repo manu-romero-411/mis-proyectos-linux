@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=YouTube
-Comment=Plataforma de vídeos
-Icon=youtube
-Exec=modoTV-handler -a youtube
-Categories=Network;AudioVideo;
-StartupNotify=true

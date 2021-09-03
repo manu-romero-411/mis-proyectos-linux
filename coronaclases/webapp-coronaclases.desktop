@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=Coronaclases
-Comment=Pinche virus... 😓
-Icon=/home/manuel/.icons/app-icons/google-classroom.png
-Exec=bash -c "webapp-wrapper $(coronaclases)"
-Categories=Network;Education;
-StartupNotify=true

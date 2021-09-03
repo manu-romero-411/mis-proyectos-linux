@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Retrobox
-Icon=applications-games
-Exec=modoTV-handler -o retrobox
-Terminal=false
-Categories=Games;
-Path=
-StartupNotify=true
