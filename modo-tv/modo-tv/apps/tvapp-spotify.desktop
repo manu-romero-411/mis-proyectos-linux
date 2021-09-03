@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Spotify
+Icon=spotify-client
+Exec=modoTV-handler -a spotify
+Terminal=false
+Categories=Audio;Music;AudioVideo;
+StartupWMClass=Spotify
+Path=
+StartupNotify=true

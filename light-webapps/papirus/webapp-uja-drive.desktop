@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=UJA - Drive
+Comment=Nube de la UJA
+Icon=odrive
+Exec=exo-open https://drive.google.com/a/ujaen.es
+Categories=Network;uja-apps;
+StartupNotify=true

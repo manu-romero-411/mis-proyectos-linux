@@ -1,0 +1,19 @@
+#!/bin/bash
+## ALTERNAR ENCENDIDO Y APAGADO DE LA PANTALLA
+## FECHA DE CREACIÓN: 15 de julio de 2020
+## FECHAS DE MODIFICACIÓN: 
+
+if [[ $1 != "-boot" ]] && [[ ! -f ~/.pantalla-apagada ]]; then
+	notify-send --icon=display "PANTALLA DE PORTÁTIL" "La pantalla se va a apagar"
+	sleep 0.5
+	xrandr --output eDP-1-1 --off
+	touch ~/.pantalla-apagada
+elif [[ $1 == "-boot"  ]] || [[ -f ~/.pantalla-apagada ]]; then
+	xrandr --output eDP-1-1 --auto
+	xrandr --output eDP-1-1 --set "scaling mode" Full
+        if [[ -f ~/.pantalla-apagada ]]; then
+		rm ~/.pantalla-apagada
+		notify-send --icon=display "PANTALLA DE PORTÁTIL" "Pantalla encendida"
+	fi
+fi
+exit 0

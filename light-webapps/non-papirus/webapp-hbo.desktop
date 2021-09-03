@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=HBO
+Comment=Series y películas
+Icon=/home/manuel/.icons/app-icons/hbo.png
+Exec=exo-open https://es.hboespana.com
+Categories=Network;AudioVideo;
+
+StartupNotify=true

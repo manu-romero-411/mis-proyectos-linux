@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=reddit
+Comment=Red social y foros
+Icon=reddit
+Exec=exo-open https://www.reddit.com/
+Categories=Network;
+StartupNotify=true

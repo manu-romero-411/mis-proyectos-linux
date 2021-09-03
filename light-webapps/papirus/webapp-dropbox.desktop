@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Dropbox (web)
+Comment=Acceso al sitio web de Dropbox
+Icon=dropbox
+Exec=exo-open https://www.dropbox.com/
+
+Categories=Network;
+StartupNotify=true

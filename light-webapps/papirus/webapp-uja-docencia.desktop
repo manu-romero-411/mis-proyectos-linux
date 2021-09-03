@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=UJA - Docencia virtual
+Comment=Intento fallido de repositorio de archivos académicos de la UJA
+Icon=office-address-book
+Exec=exo-open https://dv.ujaen.es
+Categories=Network;uja-apps;
+StartupNotify=true

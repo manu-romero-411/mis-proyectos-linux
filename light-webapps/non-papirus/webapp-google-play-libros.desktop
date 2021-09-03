@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Play Libros
+Comment=Lee ebooks online
+Icon=/home/manuel/.icons/app-icons/play-books.png
+Exec=exo-open https://play.google.com/books/
+
+Categories=Network;Utility
+StartupNotify=true

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=TuneIn Radio
+Comment=Radio online
+Icon=/home/manuel/.icons/app-icons/tunein.png
+Exec=exo-open https://tunein.com/?lang=es-ES
+Categories=Network;AudioVideo;
+
+StartupNotify=true

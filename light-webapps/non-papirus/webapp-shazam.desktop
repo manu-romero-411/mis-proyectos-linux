@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Shazam
+Comment=Música descubierta en la app móvil Shazam
+Categories=Network;
+Icon=/home/manuel/.icons/app-icons/shazam.png
+Exec=exo-open https://www.shazam.com/es
+StartupNotify=true

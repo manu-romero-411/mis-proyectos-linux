@@ -1,0 +1,32 @@
+#!/bin/bash
+## From: https://askubuntu.com/questions/458194/switching-to-hdmi-audio-when-hdmi-is-plugged-into-a-laptop-14-04
+## Script needs to be triggered by a udev rule
+## Works manually now
+
+export DISPLAY=:0
+
+##source ${HOME}/bin/bash_trace
+HDMI_STATUS=$(cat /sys/class/drm/card0/*HDMI*/status)
+INPUTS=($(pactl list sink-inputs | grep Input | awk '{print $3}' | sed -r 's/^.{1}//'))
+
+echo $HDMI_STATUS
+echo $INPUTS
+
+#if [ $HDMI_STATUS = "connected" ]; then
+if echo $HDMI_STATUS | grep -w connected; then
+	pactl set-card-profile 0 output:hdmi-stereo-extra1+input:analog-stereo
+	pactl set-default-sink alsa_output.pci-0000_00_1b.0.hdmi-stereo
+	for i in ${INPUTS[*]}; do
+		pactl move-sink-input $i alsa_output.pci-0000_00_1b.0.hdmi-stereo  &> /dev/null 
+	done
+#	xrandr --output eDP1 --off # EVITA QUE LAS PANTALLAS DEL #pcazul Y LA TV SE PONGAN EN MODO ESPEJO
+#	notify-send HDMI "HDMI conectado"
+else
+	pactl set-card-profile 0 output:analog-stereo+input:analog-stereo
+	pactl set-default-sink alsa_output.pci-0000_00_1b.0.analog-stereo
+	for i in ${INPUTS[*]}; do
+		pactl move-sink-input $i alsa_output.pci-0000_00_1b.0.analog-stereo  &> /dev/null
+	done
+#	notify-send HDMI "HDMI desconectado"
+
+fi

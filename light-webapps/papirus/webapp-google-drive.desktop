@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Drive
+Comment=Nube de Google
+Icon=google-drive
+Exec=exo-open https://drive.google.com/
+
+Categories=Network;
+StartupNotify=true

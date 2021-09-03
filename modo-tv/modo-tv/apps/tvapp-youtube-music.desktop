@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=YouTube
+Comment=
+Icon=/home/manuel/.icons/app-icons/youtube-music.png
+Exec=modoTV-handler -a youtube
+Categories=Network;AudioVideo;
+StartupNotify=true

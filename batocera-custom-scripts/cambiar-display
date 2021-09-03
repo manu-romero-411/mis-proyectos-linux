@@ -1,0 +1,65 @@
+#!/bin/bash
+## SCRIPT QUE VA A CONTROLAR SI HAY ALGO DE PANTALLA CONECTADO PARA PASAR EL DISPLAY AHI
+## FECHA: 10 de mayo de 2020
+## FECHAS DE MODIFICACIÓN: 8 de julio de 2020
+
+if xrandr | grep HDMI1 | grep " connected"; then
+	DISPLAYNUEVO=HDMI1
+	echo "1 - HDMI"
+else
+	if xrandr | grep VGA1 | grep " connected"; then
+		DISPLAYNUEVO=VGA1
+		echo "2 - VGA"
+	else	
+		detectar_displayport=$(xrandr | grep DP | sed '/eDP/d')
+		if echo $detectar_displayport | grep " connected"; then
+		        if xrandr | grep DP1 | grep " connected" &> /dev/null 2&>1; then
+		                DISPLAYNUEVO=DP1
+		        elif xrandr | grep DP2 | grep " connected" &> /dev/null; then
+		                DISPLAYNUEVO=DP2
+        		fi
+			echo "3 - DisplayPort/VGA"
+		else
+			if xrandr | grep eDP1; then
+				DISPLAYNUEVO=eDP1
+				echo "4 - eDP1"
+			else
+				if xrandr | grep eDP-1 | grep " connected"; then
+					DISPLAYNUEVO=eDP-1
+					echo "5 - eDP1 (nomenclatura vieja)"
+				else
+					if xrandr | grep VGA | grep " connected"; then
+						DISPLAYNUEVO=LVDS1
+						echo "6 - LVDS1 (Armatoste)"
+					else
+						DISPLAYNUEVO=
+					fi
+				fi
+			fi
+		fi
+	fi
+fi
+
+DISPLAYVIEJO=$(cat ~/batocera.conf | grep global.videooutput | cut -c 20-)
+if [[ $1 != "-n" ]]; then
+	if [[ ! -z $DISPLAYNUEVO ]]; then
+		if [[ -z $DISPLAYVIEJO ]]; then
+			sed -i s#global.videooutput=#global.videooutput=$DISPLAYNUEVO#g ~/batocera.conf
+		else
+			if [[ $DISPLAYNUEVO != $DISPLAYVIEJO ]]; then
+	#			echo "Cambiando DISPLAY"
+				sed -i s#$DISPLAYVIEJO#$DISPLAYNUEVO#g ~/batocera.conf
+			fi
+		fi
+		exit 0
+	else
+		exit 1
+	fi
+else
+	if [[ ! -z $DISPLAYNUEVO ]]; then
+		echo $DISPLAYNUEVO
+	else
+		echo $DISPLAYVIEJO
+	fi
+fi
+#global.videooutput=

@@ -1,0 +1,23 @@
+#!/bin/bash
+## RESPAWNEADOR DEL GESTOR DE ESCRITORIO DE NEMO EN XFCE
+## FECHA DE CREACIÓN: 6 de octubre de 2020
+## FECHAS DE MODIFICACIÓN:
+
+function desktop_respawn(){
+	xfdesktop_load &
+	sleep 1
+	nemo-desktop || desktop_kill
+}	
+
+
+function xfdesktop_load(){
+	xfdesktop || desktop_kill
+}
+
+function desktop_kill(){
+	killall xfdesktop
+	killall nemo-desktop
+	desktop_respawn
+}
+
+desktop_respawn

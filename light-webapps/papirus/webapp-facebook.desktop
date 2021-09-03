@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Facebook
+Comment=Red social
+Icon=facebook
+Exec=exo-open https://m.facebook.com/
+
+Categories=Network;
+StartupNotify=true

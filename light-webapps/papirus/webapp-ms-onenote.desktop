@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Microsoft OneNote
+Comment=Microsoft Online App OneNote
+Exec=exo-open 'http://www.onenote.com/notebooks'
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=ms-onenote
+Categories=Microsoft Online Apps;Office;Utility;
+Path=

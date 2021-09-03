@@ -1,0 +1,78 @@
+#!/bin/bash
+## SIMULADOR DEL JUEGO NIM CON n FICHAS
+## FECHA: 31 de marzo de 2020 (F+6)
+
+if ! [[ "$1" =~ ^[0-9]+$ ]] || [[ -z $1 ]]; then
+	echo "[ERROR] F. Necesitas poner el número de fichas"
+	exit 1
+elif [[ $1 -gt 255 ]]; then
+	echo "[ERROR] F. Necesitas poner el número de fichas"
+        exit 1
+else
+	n=$1
+fi
+
+function turno_pc(){
+	h=$(($n + 1)) #valor centinela n+1
+	clear
+	echo "### Quedan $n fichas ###"
+	echo "### VOY A COGER..."
+	sleep 1
+	while [[ $h -gt $n ]]; do
+		h=0
+		h=$(($RANDOM % 3 + 1))
+	done
+	if [[ $h -eq 1 ]]; then
+		echo "... $h FICHA"
+	else
+		echo "... $h FICHAS"
+	fi
+	n=$(($n - $h))
+	h=pc
+	sleep 2
+}
+
+function turno_yo(){
+	h=0
+	while [[ $h -gt 3 ]] || [[ $h -lt 1 ]] || [[ $h -gt $n ]]; do
+		clear
+		echo "### Quedan $n fichas ###"
+		echo "### INTRODUCE NÚMERO DE FICHAS QUE VAS A COGER:"
+		read h
+		if [[ $h -gt 3 ]] || [[ $h -lt 1 ]]; then
+			echo "[ERROR] DEBES COGER 1, 2 ó 3 FICHAS"
+			sleep 1
+		elif [[ $h -gt $n ]]; then
+			echo "[ERROR] VAS A COGER MÁS FICHAS DE LAS QUE QUEDAN" 
+		fi
+	done
+	if [[ $h -eq 1 ]]; then
+		echo "### HAS COGIDO $h FICHA"
+	else
+		echo "### HAS COGIDO $h FICHAS"
+	fi
+	n=$(($n - $h))
+	h=yo
+	sleep 2
+}
+
+function check(){
+	if [[ $n -eq 0 ]]; then
+		if [[ $h == "yo" ]]; then
+			clear
+			echo "HAS PERDIDO. F"
+			exit 1
+		elif [[ $h == "pc" ]]; then
+			clear
+			echo "HAS GANADO"
+			exit 0
+		fi
+	fi
+}
+
+while [[ $n -gt 0 ]]; do
+	turno_yo
+	check
+	turno_pc
+	check
+done

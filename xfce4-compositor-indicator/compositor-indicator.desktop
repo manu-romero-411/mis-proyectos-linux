@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Efectos gráficos
+Comment=Desactivados (clic para activar)
+Exec=compositor-indicator
+Icon=Xfwm4CompositeEditor
+Path=
+Terminal=false
+StartupNotify=false

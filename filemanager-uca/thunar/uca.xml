@@ -1,0 +1,157 @@
+
+<?xml encoding="UTF-8" version="1.0"?>
+<actions>
+<action>
+	<icon>cm_runterm</icon>
+	<name>Abrir terminal aquí</name>
+	<unique-id>1564673760693950-1</unique-id>
+	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
+	<description>Abre una ventana de terminal posicionada en esta carpeta</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>filefind</icon>
+	<name>Buscar en esta carpeta</name>
+	<unique-id>1564673760693978-2</unique-id>
+	<command>catfish --path=%f</command>
+	<description>Buscar archivos dentro de esta carpeta</description>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>folder-new</icon>
+	<name>Crear carpeta nueva con la selección</name>
+	<unique-id>1564673760694036-4</unique-id>
+	<command>thunar-selected-to-folder %F</command>
+	<description>Crea una nueva carpeta con los archivos seleccionados</description>
+	<patterns>*</patterns>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>state-warning</icon>
+	<name>Abrir carpeta como superusuario</name>
+	<unique-id>1564673760694055-5</unique-id>
+	<command>pkexec thunar %f</command>
+	<description>Abre esta carpeta como superusuario</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>vlc-panel</icon>
+	<name>Reproducir con VLC</name>
+	<unique-id>1564673760694095-7</unique-id>
+	<command>vlc %f</command>
+	<description>Reproduce los archivos multimedia de esta carpeta con VLC</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>xfce-wm-unstick</icon>
+	<name>Anclar/desanclar documento</name>
+	<unique-id>1564673760694131-8</unique-id>
+	<command>anclar-documentos %f</command>
+	<description>Pone o quita este documento en la lista Documentos Anclados</description>
+	<patterns>*.doc;*.docx;*.ppt;*.pptx;*.xls;*.xlsx;*.odt;*.ods;*.odp;*.pdf;*.txt;*.jpg;*.png</patterns>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>meld</icon>
+	<name>Comparar archivos</name>
+	<unique-id>1564676352819310-36</unique-id>
+	<command>meld %F</command>
+	<description>Los archivos que se abran se mostrarán simultáneamente para comprobar diferencias en ellos</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<text-files/>
+</action>
+<action>
+	<icon>document-open-folder</icon>
+	<name>Sacar archivos de las subcarpetas a la carpeta raíz</name>
+	<unique-id>1564673760694225-11</unique-id>
+	<command>find . -mindepth 2 -type f -exec mv &quot;{}&quot; . \; &amp;&amp; find . -type d -empty -delete</command>
+	<description>Esta acción eliminará las subcarpetas y sacará todos sus archivos aquí</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>edit</icon>
+	<name>Renombrar en minúsculas y guiones</name>
+	<unique-id>1564673760694251-12</unique-id>
+	<command>for file in %N; do mv &quot;$file&quot; &quot;$(echo &quot;$file&quot; | tr -s &apos; &apos; | tr &apos; A-Z&apos; &apos;-a-z&apos; | tr -s &apos;-&apos; | tr -c &apos;[:alnum:][:cntrl:].&apos; &apos;-&apos;)&quot;; done</command>
+	<description>Esta acción eliminará todos los espacios, tildes y caracteres conflictivos del nombre de los archivos.</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>view-list-video</icon>
+	<name>Convertir vídeo a GIF</name>
+	<unique-id>1564673760694336-16</unique-id>
+	<command>video-to-gif -f %f</command>
+	<description>Transforma el vídeo seleccionado en un GIF</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<video-files/>
+</action>
+<action>
+	<icon>github</icon>
+	<name>Pegar en Github Gist</name>
+	<unique-id>1564673760694372-18</unique-id>
+	<command>paste-to-gist -f %f</command>
+	<description>Transfiere este archivo de texto a Gist</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<text-files/>
+</action>
+<action>
+	<icon>edit-paste</icon>
+	<name>Pegar en Pastebin</name>
+	<unique-id>1564673760694388-19</unique-id>
+	<command>paste-to-pastebin -f %f</command>
+	<description>Sube este archivo a un bloc de notas de Pastebin</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<text-files/>
+</action>
+<action>
+	<icon>image-x-xcf</icon>
+	<name>Subir imagen a Imgur</name>
+	<unique-id>1564673760694420-20</unique-id>
+	<command>upload-to-imgur -f %f</command>
+	<description>Sube esta imagen a Imgur para compartirla en algunas páginas web y redes</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<image-files/>
+</action>
+<action>
+	<icon>telegram</icon>
+	<name>Enviar por Telegram...</name>
+	<unique-id>1573469436853723-1</unique-id>
+	<command>telegram -sendpath %F</command>
+	<description>Envía los archivos seleccionados a un contacto, grupo o canal de Telegram </description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+</actions>

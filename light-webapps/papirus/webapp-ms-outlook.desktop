@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Correo electrónico Outlook
+Comment=Correo electrónico de Microsoft
+Icon=ms-outlook
+Exec=exo-open https://outlook.live.com
+Categories=Network;Office;
+StartupNotify=true

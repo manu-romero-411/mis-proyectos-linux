@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Wikipedia en español
+Comment=La enciclopedia libre
+Icon=wikipedia
+Categories=Network;Education;
+Exec=exo-open https://es.wikipedia.org/wiki/Wikipedia:Portada
+StartupNotify=true

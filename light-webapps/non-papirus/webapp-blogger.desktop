@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Blogger
+Comment=Creador de blogs online
+Icon=/home/manuel/.icons/app-icons/blogger.png
+Exec=exo-open https://www.blogger.com/
+
+Categories=Network;cositas-personales;
+StartupNotify=true

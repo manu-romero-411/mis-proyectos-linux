@@ -1,0 +1,60 @@
+#!/bin/bash
+## PIEDRA, PAPEL O TIJERAS
+## FECHA: 25 de marzo de 2020 (F)
+
+clear
+echo "##########################"
+echo "# Piedra, papel o tijera #"
+echo "##########################"
+echo "Introduce 0, 1 ó 2."
+echo "* 0: Piedra"
+echo "* 1: Papel"
+echo "* 2: Tijera"
+read yo
+pc=$(($RANDOM%3))
+clear
+echo "PIEDRA"
+sleep 0.5
+echo "PAPEL"
+sleep 0.5
+echo "TIJERA"
+sleep 1
+clear
+if [[ $yo == "0" ]]; then
+	echo "Tú: PIEDRA"
+	if [[ $pc == "0" ]]; then
+		echo "Yo: PIEDRA"
+		echo "EMPATE"	
+	elif [[ $pc == "1" ]]; then
+		echo "Yo: PAPEL"
+                echo "HAS PERDIDO (F)"
+	elif [[ $pc == "2" ]]; then
+		echo "Yo: TIJERA"
+                echo "HAS GANADO"
+	fi
+elif [[ $yo == "1" ]]; then
+	echo "Tú: PAPEL"
+	if [[ $pc == "0" ]]; then
+                echo "Yo: PIEDRA"
+                echo "HAS GANADO"
+        elif [[ $pc == "1" ]]; then
+                echo "Yo: PAPEL"
+                echo "EMPATE"
+        elif [[ $pc == "2" ]]; then
+                echo "Yo: TIJERA"
+                echo "HAS PERDIDO (F)"
+        fi
+elif [[ $yo == "2" ]]; then
+	echo "Tú: TIJERA"
+	if [[ $pc == "0" ]]; then
+                echo "Yo: PIEDRA"
+                echo "HAS PERDIDO (F)"
+        elif [[ $pc == "1" ]]; then
+                echo "Yo: PAPEL"
+                echo "HAS GANADO"
+        elif [[ $pc == "2" ]]; then
+                echo "Yo: TIJERA"
+                echo "EMPATE"
+        fi
+fi
+exit 0

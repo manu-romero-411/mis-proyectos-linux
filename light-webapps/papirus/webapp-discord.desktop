@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Discord
+Comment=Aplicación de chat y reuniones enfocada al entretenimiento
+Icon=discord
+Exec=exo-open https://discord.com/app
+Categories=Network;
+StartupNotify=true

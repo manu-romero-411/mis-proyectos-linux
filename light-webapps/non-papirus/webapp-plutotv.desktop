@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Pluto TV
+Comment=Servicio de TV y multimedia gratuito
+Icon=/home/manuel/.icons/app-icons/plutotv.png
+Exec=exo-open https://pluto.tv
+Categories=Network;AudioVideo;
+StartupNotify=true

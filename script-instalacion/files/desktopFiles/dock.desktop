@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.1
+Type=Application
+Name=Dock
+Comment=Configura el dock de aplicaciones
+Icon=cairo-dock
+Exec=plank --preferences
+Actions=
+Categories=DesktopSettings;GTK;Settings;X-XFCE-PersonalSettings;X-XFCE-SettingsDialog;XFCE;
+StartupNotify=true
+OnlyShowIn=XFCE;

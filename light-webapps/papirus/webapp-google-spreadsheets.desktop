@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Docs - Hojas de cálculo
+Comment=Hojas de cálculo
+Icon=x-office-spreadsheet
+Exec=exo-open https://docs.google.com/spreadsheets/
+Categories=Network;Office;Spreadsheet;
+StartupNotify=true

@@ -1,0 +1,54 @@
+#!/bin/bash
+## FRONTEND PARA DIVISOR DE MIDIS BANANA-SPLIT (https://github.com/timwedde/banana-split)
+## FECHA: 25 de abril de 2021
+
+bananaDir="$HOME/banana-split"
+
+function error(){
+	echo "[ERROR] $@"
+	exit 1
+}
+
+if [ -z $1 ]; then
+	error Carpeta input "(primer argumento)" no especificada o errónea
+else
+	inputDir="$1"
+fi
+
+if [ -z $2 ]; then
+	error Carpeta input "(segundo argumento)" no especificado
+else
+	outputDir="$2"
+fi
+
+if [ ! -d "$bananaDir" ]; then
+	echo "No se pudo encontrar BananaSplit en el directorio $HOME. Ejecuta lo siguiente para instalarlo:"
+	echo " "
+	echo "git clone https://github.com/timwedde/banana-split $HOME/banana-split"
+	echo " "
+	exit 1
+else
+	echo "BANANA FOLDER FOLDER OKAY. YU SMART )))))))))))"
+fi
+
+if [ ! -d "$inputDir" ]; then
+	echo "INPUT FOLDER NO VALID OR EXISTENT, YU EXPIRIENCE THE SPACE GULAG ))))))))"
+	exit 1
+else
+	echo "INPUT FOLDER OKAY. YU SMART )))))))))))"
+fi
+
+if [ ! -d "$outputDir" ]; then
+        echo "OUTPUT FOLDER NO VALID OR EXISTENT, YU EXPIRIENCE THE SPACE GULAG ))))))))" 
+        exit 1
+else
+	echo "OUTPUT FOLDER OKAY. YU SMART )))))))))))"
+fi
+
+cd "$bananaDir"
+virtualenv "$bananaDir/venv"
+source "$bananaDir/venv/bin/activate"
+cd "$bananaDir/banana-split"
+python3 banana-split.py -i "$inputDir" -o "$outputDir" -v || error "BLYAAAAAAT NO WORK ((((((("
+exit 0
+

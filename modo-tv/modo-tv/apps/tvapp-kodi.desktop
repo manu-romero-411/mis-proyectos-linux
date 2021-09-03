@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Kodi
+Icon=kodi
+Exec=modoTV-handler -a kodi
+Terminal=false
+Categories=Audio;Music;AudioVideo;
+Path=
+StartupNotify=true

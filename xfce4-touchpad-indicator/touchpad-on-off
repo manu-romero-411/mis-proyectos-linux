@@ -1,0 +1,49 @@
+#!/bin/bash
+## SCRIPT PARA ALTERNAR EL ESTADO DEL TOUCHPAD SYNAPTICS EN XFCE
+## FECHA DE CREACIÓN: 1 de octubre de 2019
+## FECHAS DE MODIFICACIÓN: 19 de febrero de 2020, 29 de febrero de 2020, 29 de abril de 2020, 5 de julio de 2020
+
+## CAMBIAR EL ESTADO DEL TOUCHPAD ARBITRARIAMENTE
+
+##pcgrande
+xfconfprop="/ELAN120000_04F33045_Touchpad/Properties/Device_Enabled"
+atajo="Fn+F9"
+
+##pcazul
+#xfconfprop="/SynPS2_Synaptics_TouchPad/Properties/Device_Enabled"
+#atajo="Win+F5"
+
+##armatoste
+#xfconfprop="/SynPS2_Synaptics_TouchPad/Properties/Device_Enabled"
+#atajo="Fn+F9"
+
+if [[ -z $1 ]]; then
+	ESTADOA=$(synclient  | grep TouchpadOff | cut -c 31)
+	ESTADOB=$(xfconf-query --create -c pointers -p ${xfconfprop})
+	if [[ $ESTADOA == 0 ]] || [[ $ESTADOB == 1 ]]; then
+		xfconf-query --create -c pointers -p ${xfconfprop} --set 0
+		synclient TouchPadOff=1
+		notify-send "Estado del panel táctil" "El panel táctil ha sido apagado.
+Pulsa $atajo o el icono del panel para activarlo." --icon=input-mouse
+	elif [[ $ESTADOA == 1 ]] || [[ $ESTADOB == 0 ]]; then
+		xfconf-query --create -c pointers -p ${xfconfprop} --set 1
+		synclient TouchPadOff=0
+		notify-send "Estado del panel táctil" "El panel táctil ha sido encendido.
+Pulsa $atajo o el icono del panel para desactivarlo." --icon=input-touchpad
+	fi
+	echo $(xfconf-query --create -c pointers -p ${xfconfprop}) > "$HOME/.config/touchpad"
+else
+
+## CAMBIAR EL ESTADO DEL TOUCHPAD AL QUE HABÍA LA ÚLTIMA VEZ QUE HICIMOS LOGIN, LLEVADOS AQUÍ CON ARGUMENTOS DE ENTRADA
+	echo inicio
+	ESTADO=$(cat "$HOME/.config/touchpad" | cut -c 1)
+	echo $ESTADO
+	if [[ $ESTADO -eq 0 ]]; then
+        	xfconf-query --create -c pointers -p ${xfconfprop} --set 0
+		synclient TouchPadOff=1
+	elif [[ $ESTADOB -eq 1 ]]; then
+		xfconf-query --create -c pointers -p ${xfconfprop} --set 1
+		synclient TouchPadOff=0
+	fi
+fi
+exit 0

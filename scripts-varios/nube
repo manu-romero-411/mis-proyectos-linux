@@ -1,0 +1,9 @@
+#!/bin/bash
+## EN UNA NUBE ME HALLARÉ, Y EL #pcazul TAMBIÉN
+## REQUISITOS: rclone
+## FECHA: 14 de junio de 2020
+
+for i in $@; do
+	rclone --dir-cache-time 5s --vfs-cache-mode writes mount $i: ~/.nube/$i &
+done
+exit 0 

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Mostrar escritorio
+Comment=
+Exec=wmctrl -k on
+Icon=user-violet-desktop
+Path=
+Terminal=false
+StartupNotify=true

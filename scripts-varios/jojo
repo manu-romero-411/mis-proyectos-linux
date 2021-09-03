@@ -1,0 +1,12 @@
+#!/bin/bash
+## IS THIS A JOJO REFERENCE?
+## FECHA: 12 de diciembre de 2019
+
+echo "IS THIS A JOJO REFERENCE?"
+read jojo
+if [[ $jojo == "ORA ORA ORA ORA" ]] || [[ $jojo == "YARE YARE" ]]; then
+	echo "NICE"
+else
+	echo "OH MY GOOOD"
+fi
+exit 0

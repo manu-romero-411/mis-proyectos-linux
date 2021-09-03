@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=OneDrive
+Comment=Nube de Microsoft
+Icon=ms-onedrive
+Exec=exo-open https://onedrive.live.com/
+Categories=Network;
+StartupNotify=true

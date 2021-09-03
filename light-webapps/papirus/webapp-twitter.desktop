@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Twitter
+Comment=Red social de microblogging
+Icon=twitter
+Exec=exo-open https://twitter.com/
+Categories=Network;
+StartupNotify=true

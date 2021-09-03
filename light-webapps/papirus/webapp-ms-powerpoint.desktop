@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Microsoft PowerPoint
+Comment=Microsoft Online App PowerPoint
+Exec=exo-open 'https://office.live.com/start/PowerPoint.aspx'
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=ms-powerpoint
+Categories=Microsoft Online Apps;Office;Network;
+Path=

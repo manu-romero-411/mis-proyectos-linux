@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=UJA - Universidad virtual
+Comment=Gestión de trámites administrativos de la UJA
+Icon=bookworm
+Exec=exo-open https://uvirtual.ujaen.es
+Categories=Network;uja-apps;
+StartupNotify=true

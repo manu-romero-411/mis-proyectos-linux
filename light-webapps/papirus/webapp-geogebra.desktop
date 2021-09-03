@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=GeoGebra
+Comment=Herramienta para el análisis matemático
+Icon=geogebra
+Exec=exo-open https://www.geogebra.org/graphing?lang=es
+Categories=Network;Education;
+StartupNotify=true
+Path=
+Terminal=false

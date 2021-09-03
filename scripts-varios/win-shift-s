@@ -1,0 +1,8 @@
+#!/bin/bash
+## MANEJADOR DE WIN+SHIFT+S EN XFCE
+## FECHA DE CREACIÓN: 10 de octubre de 2020
+## FECHAS DE MODIFICACIÓN: 
+
+xfce4-screenshooter -rc || exit 1
+notify-send --icon=edit-cut "RECORTE DE PANTALLA" "El recorte se ha guardado en el Portapapeles"
+exit 0

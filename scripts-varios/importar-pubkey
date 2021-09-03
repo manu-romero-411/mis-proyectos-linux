@@ -1,0 +1,7 @@
+#!/bin/bash
+## IMPORTADOR DE PUBKEYS PARA REPOSITORIOS
+## FECHA DE CREACIÓN: 12 de julio de 2020
+## FECHAS DE MODIFICACIÓN:
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $1 || exit 1
+exit 0

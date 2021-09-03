@@ -1,0 +1,36 @@
+#!/bin/bash
+## OMAE WA MOU SHINDERU
+## NANI????
+## HIDZUKE: 2019-Nen 12 tsuki 12-nichi
+
+i=1
+j=1
+while [[ $i != "14" ]]; do
+	echo "ORA"
+	read ora
+	if [[ $ora == "ORA" ]]; then
+		#echo "ORA ORA ORA ORA ORA ORA ORA"
+		while [[ $j != "114" ]]; do
+			echo "ORA"
+			sleep 0.15
+			j=$(($j + 1))
+		done
+		exit 0
+	else
+		echo "YARE YARE"
+		sleep 1
+		clear
+		i=$(($i + 1))
+		if [[ $i == "14" ]]; then
+			echo "OMAE WA MOU SHINDERU"
+			read nani
+			if [[ $nani == "NANI" ]]; then
+				petar
+			else
+				echo "YOU AZUL TO SPACE GULAG IF NO NANI )))))))))))))))"
+				sleep 2
+				petar
+			fi
+		fi
+	fi
+don

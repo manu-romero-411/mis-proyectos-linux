@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Keep
+Comment=Anotaciones
+Icon=keep
+Exec=exo-open https://keep.google.com/
+
+Categories=Network;Utility;
+StartupNotify=true

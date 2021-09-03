@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=Reiniciador del modo TV
+Comment=
+Exec=modoTV-handler -x boot
+OnlyShowIn=XFCE;
+StartupNotify=false
+Terminal=false
+Hidden=false
+
+Name[es_ES]=reiniciador-modo-tv.desktop

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Duolingo
+Comment=Aprender idiomas
+Icon=duolingo
+Exec=exo-open https://es.duolingo.com
+
+Categories=Network;Game;Education;
+StartupNotify=true

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Coronaclases
+Comment=Hasta que el Estado de Alarma dure... 😓
+Icon=/home/manuel/.icons/app-icons/coronavirus.png
+Exec=bash -c "exo-open $(coronaclases)"
+Categories=Network;Education;
+StartupNotify=true

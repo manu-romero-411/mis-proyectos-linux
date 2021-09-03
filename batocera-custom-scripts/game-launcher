@@ -1,0 +1,13 @@
+#!/bin/bash
+## WRAPPER PARA EJECUTAR JUEGOS CON WINE (MOD. PARA BATOCERA)
+## FECHA DE CREACIÓN: 3 de enero de 2020
+## FECHAS DE MODIFICACIÓN: 12 de julio de 2020
+
+#dir=$(dirname "$1")
+dir=$1
+[ ! -d "$dir" ] && echo "[ERROR] Directorio inválido" && exit 1
+#[ ! -f "$1" ] && echo "[ERROR] Archivo no encontrado" && exit 1
+
+cd "$dir"
+#wine "$1"
+$(cat batocera.plus)

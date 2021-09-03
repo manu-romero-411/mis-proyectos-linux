@@ -1,0 +1,108 @@
+#!/bin/bash
+# MODO DE USO DE DEBIAN PARA EVITAR DESCONCENTRACIONES
+# FECHA: 17 de junio de 2021
+
+function bloqueo_on(){
+	while [[ -f /bloqueo ]]; do
+		if pidof msedge || pidof Telegram || pidof Discord; then
+			pkill msedge || true
+			pkill Telegram || true
+			pkill Discord || true
+			do_a_barrel_roll_pcgrande_hdmi
+			zenity --error --text "El bloqueo anti-desconcentración está activado"
+		else
+			sleep 5
+		fi
+	done
+}
+
+function do_a_barrel_roll_pcgrande_hdmi(){
+	if xrandr | grep HDMI2 | grep " connected"; then
+		DISPLAYPANT=HDMI2
+	else
+		DISPLAYPANT=eDP1
+	fi
+	xrandr --output $DISPLAYPANT --rotate inverted
+	sleep 0.5
+	xrandr --output $DISPLAYPANT --rotate normal
+	sleep 0.5
+	xrandr --output $DISPLAYPANT --rotate inverted
+	sleep 0.5
+	xrandr --output $DISPLAYPANT --rotate normal
+}
+
+function desbloquear(){
+	if zenity --question --text="¿Quieres quitar el bloqueo anti-desconcentración?"; then 
+		if zenity --question --text="¿En serio?"; then 
+			if zenity --question --text="¿De verdad?"; then 
+				if zenity --question --text="Piénsatelo, ¿eh?"; then 
+					pkexec antidesconcentramiento turnOff || exit 1
+					notify-send --icon=system-lock-screen "BLOQUEO ANTI-DESCONCENTRACIÓN" "Bloqueo deshabilitado"
+					cambiar_icono
+					exit 0
+				else
+					notify-send --icon=system-lock-screen "BLOQUEO ANTI-DESCONCENTRACIÓN" "Bieen. Te lo has pensado 👏️"
+					exit 1
+				fi
+			else
+				notify-send --icon=system-lock-screen "BLOQUEO ANTI-DESCONCENTRACIÓN" "De mentira 👏️"
+				exit 1
+			fi
+		else
+			notify-send --icon=system-lock-screen "BLOQUEO ANTI-DESCONCENTRACIÓN" "De broma 👏️"
+			exit 1
+		fi
+	else
+		notify-send --icon=system-lock-screen "BLOQUEO ANTI-DESCONCENTRACIÓN" "Haces bien 👏️"
+	fi
+}
+
+function bloquear(){
+	pkexec antidesconcentramiento turnOn || exit 1
+        notify-send --icon=system-lock-screen "BLOQUEO ANTI-DESCONCENTRACIÓN" "Bloqueado 🔒️"
+	cambiar_icono
+	exec $0 on
+}
+
+function cambiar_icono(){
+	archivos=$(ls $HOME/.config/xfce4/panel/*/*.desktop | tr " " "\n" | tr "\n" " ")
+	COLOCADO=0
+	for i in $archivos; do
+		if grep "anti-desconcentramiento" "$i" && [[ $COLOCADO != 1 ]]; then
+			if [[ ! -f /bloqueo ]]; then
+				sed -i s#-locked#-unlocked#g "$i"
+				sed -i s#Activado#Desactivado#g "$i"
+
+			elif [[ -f /bloqueo ]]; then
+	                        sed -i s#-unlocked#-locked#g "$i"
+				sed -i s#Desactivado#Activado#g "$i"
+			fi
+			COLOCADO=1
+		fi
+	done
+}
+
+function boot(){
+	if [[ -f /bloqueo ]]; then
+		bloqueo_on
+	fi
+}
+
+if [[ $1 == "on" ]]; then bloqueo_on
+elif [[ $1 == "boot" ]]; then boot
+elif [[ $1 == "turnOn" ]]; then
+	touch /bloqueo
+	chmod -x /etc/grub.d/08_custom
+#	chmod -x /etc/grub.d/09_os-prober
+	update-grub
+	exit 0
+elif [[ $1 == "turnOff" ]]; then
+	rm /bloqueo
+	chmod +x /etc/grub.d/08_custom
+#	chmod +x /etc/grub.d/09_os-prober
+	update-grub
+	exit 0
+elif [[ $1 == "toggle" ]]; then
+	if [[ -f /bloqueo ]] ;then desbloquear; else bloquear; fi
+elif [[ -z $1 ]]; then exit 1
+fi

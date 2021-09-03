@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Amazon
+Comment=Web de compras
+Icon=amazon
+Exec=exo-open https://www.amazon.es/
+
+Categories=Network;
+StartupNotify=true

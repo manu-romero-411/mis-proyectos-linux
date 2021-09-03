@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=WhatsApp
+Comment=Caca de app de mensajería
+Icon=whatsapp
+Exec=exo-open https://web.whatsapp.com/
+Categories=Network;
+StartupNotify=true

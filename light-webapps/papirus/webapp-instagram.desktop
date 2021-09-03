@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Instagram
+Comment=Red social de fotos
+Icon=instagram
+Exec=exo-open https://www.instagram.com/
+Categories=Network;
+StartupNotify=true

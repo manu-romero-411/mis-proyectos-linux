@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Twitch
+Comment=Plataforma de directos
+Icon=gnome-twitch
+Exec=exo-open https://twitch.com
+Categories=Network;AudioVideo;
+
+StartupNotify=true

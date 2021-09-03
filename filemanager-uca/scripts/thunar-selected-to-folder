@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Define a function that launches the zenity input dialog
+get_foldername(){
+    zenity --entry --width=300 --title="Nueva carpeta con los archivos seleccionados" --text="Nombre de la nueva carpeta:"
+}
+
+# Ask user for foldername
+foldername=$(get_foldername) || exit
+
+# Try to create a new folder with the name from user input
+errorString=$( mkdir "$foldername" 2>&1 )
+
+# If an error occurs show error dialog and ask again for foldername
+while [ -n "$errorString" ]; do
+    zenity --error --title="$( echo $errorString | cut -d: -f3- )" --text="$( echo $errorString | cut -d: -f2- )"  || exit 
+
+    # Ask again for foldername
+    foldername=$(get_foldername) || exit
+    errorString=$( mkdir "$foldername" 2>&1 )
+done
+
+# Move selected files to the new folder
+mv -t "${PWD}/${foldername}" "${@}" 

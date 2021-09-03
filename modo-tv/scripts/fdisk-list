@@ -1,0 +1,6 @@
+#!/bin/bash
+## EJECUTAR fdisk -l DE UNA FORMA UN POCO MÁS SEGURA
+## FECHA: 15 de noviembre de 2020
+
+fdisk -l
+exit $?

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Categories=Network;
+Name=GitHub
+Comment=Colaboración en proyectos de software
+Icon=github
+Exec=exo-open https://github.com/
+StartupNotify=true

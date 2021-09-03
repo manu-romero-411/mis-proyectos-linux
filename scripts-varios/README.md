@@ -1,0 +1,1 @@
+Aquí van a haber scripts varios creados o vastamente modificados por mí desde la fecha del 1 de octubre de 2019. Son de (in)utilidad general, los más específicos estarán en otro lugar en este repositorio.

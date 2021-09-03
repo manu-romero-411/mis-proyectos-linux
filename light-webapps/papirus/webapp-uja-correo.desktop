@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=UJA - Correo
+Comment=Correo electrónico
+Icon=gmail-offline
+Exec=exo-open https://mail.google.com/a/ujaen.es
+Categories=Network;uja-apps;
+StartupNotify=true

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Simplenote
+Comment=Aplicación online de notas online con Markdown
+Icon=simplenote
+Exec=exo-open https://app.simplenote.com/
+Categories=Network;Utility;
+StartupNotify=true

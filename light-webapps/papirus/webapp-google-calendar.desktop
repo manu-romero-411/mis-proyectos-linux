@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Calendar
+Comment=Calendario sincronizado
+Icon=google-agenda
+Exec=exo-open https://calendar.google.com/
+
+Categories=Network;Office;Utility;
+StartupNotify=true

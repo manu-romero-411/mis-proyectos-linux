@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Modo anti-desconcentramiento
+Comment=
+Exec=/usr/local/bin/antidesconcentramiento toggle
+Icon=/usr/share/icons/Papirus-Dark/16x16/actions/object-locked.svg
+Path=
+Terminal=false
+StartupNotify=true

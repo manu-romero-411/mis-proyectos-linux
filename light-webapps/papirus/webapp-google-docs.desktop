@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Docs - Documentos
+Comment=Documentos
+Icon=google-docs
+Exec=exo-open https://docs.google.com/
+Categories=Network;Office;WordProcessor;
+StartupNotify=true

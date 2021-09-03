@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Wallapop
+Comment=Compras de segunda mano locales
+Icon=/home/manuel/.icons/app-icons/wallapop.png
+Exec=exo-open https://es.wallapop.com/
+Categories=Network;
+StartupNotify=true

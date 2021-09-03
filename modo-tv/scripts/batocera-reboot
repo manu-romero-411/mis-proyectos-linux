@@ -1,0 +1,12 @@
+#!/bin/bash
+## SCRIPT PARA REINICIAR A BATOCERA
+## FECHA: 15 de noviembre de 2020
+
+if [[ -z $@ ]]; then
+	touch /retrobox-boot
+	init 6
+else
+	[[ -f /retrobox-boot ]] && rm /retrobox-root
+	exit 0
+fi
+

@@ -1,0 +1,24 @@
+[Nemo Action]
+
+Active=true
+
+Name=Create new folder with selection
+Name[pt]=Criar nova pasta com seleção
+Name[es]=Crear nueva carpeta con la selección
+
+Comment=Creates a new folder with the selected items
+Comment[pt]=Cria uma nova pasta com os itens selecionados
+Comment[es]=Crea una carpeta nueva con los elementos seleccionados
+Exec=nemo-selected-to-folder %P %F
+
+Icon-Name=folder-new
+
+Selection=notnone
+
+Extensions=any;
+
+Dependencies=zenity;
+
+EscapeSpaces=true
+
+Terminal=false

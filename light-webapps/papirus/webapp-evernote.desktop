@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Evernote
+Comment=Aplicación online de notas 
+Icon=evernote
+Exec=exo-open https://www.evernote.com/client/web
+Categories=Network;Utility;
+StartupNotify=true

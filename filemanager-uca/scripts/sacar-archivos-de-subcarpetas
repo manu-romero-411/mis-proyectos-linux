@@ -1,0 +1,12 @@
+#!/bin/bash
+## SACAR ARCHIVOS DE SUBCARPETAS A CARPETA RAÍZ
+## FECHA DE CREACIÓN: 5 de agosto de 2020
+## FECHAS DE MODIFICACIÓN: 
+
+if [[ -z $1 ]]; then
+	echo "[ERROR] No se han pasado argumentos (la carpeta de donde se quieren quitar subcarpetas)"
+	exit 1
+fi
+
+find -L "$1" -mindepth 2 -type f -exec mv "{}" "$1" \; && find -L "$1" -type d -empty -delete
+exit 0

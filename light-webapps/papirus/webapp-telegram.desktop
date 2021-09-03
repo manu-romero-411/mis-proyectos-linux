@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Telegram
+Comment=Buena app de mensajería
+Icon=telegram
+Exec=exo-open https://web.telegram.org/
+Categories=Network;
+StartupNotify=true

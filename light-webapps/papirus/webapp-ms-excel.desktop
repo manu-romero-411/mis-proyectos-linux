@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Microsoft Excel
+Comment=Microsoft Online App Excel
+Exec=exo-open 'https://office.live.com/start/Excel.aspx'
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=ms-excel
+Categories=Microsoft Online Apps;Office;Network;
+Path=

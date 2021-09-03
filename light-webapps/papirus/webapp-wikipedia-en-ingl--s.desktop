@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Wikipedia en inglés
+Comment=The free encyclopedia
+Categories=Network;Education;
+Icon=wikipedia
+Exec=exo-open https://en.wikipedia.org/wiki/Main_Page
+StartupNotify=true

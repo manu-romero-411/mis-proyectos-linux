@@ -1,0 +1,81 @@
+#!/bin/bash
+## GENERADOR DE CANCIONES PARA GRUB_INIT_TUNE
+## FECHA DE CREACIÓN: 10 de octubre de 2020
+## FECHAS DE MODIFICACIÓN:
+
+## POR DEFECTO VA A LEER UN ARCHIVO ~/Escritorio/cancion.txt, PERO SE DARÁ LA OPCIÓN DE QUE SE PONGA EN OTRA RUTA MEDIANTE ARGUMENTO
+
+if [[ -z $1 ]]; then
+	CANCION=~/Escritorio/cancion.txt
+	if [[ ! -f $1 ]]; then
+                echo "[ERROR] Archivo no encontrado"
+                exit 1
+	fi
+else
+	if [[ ! -f $1 ]]; then
+		echo "[ERROR] Archivo no encontrado"
+		exit 1
+	else
+		CANCION=$1
+	fi
+fi
+
+sed -i s/"0FA "/"22 "/g $CANCION
+sed -i s/"0FA# "/"23 "/g $CANCION
+sed -i s/"0SOL "/"24 "/g $CANCION
+sed -i s/"0SOL# "/"26 "/g $CANCION
+sed -i s/"0LA "/"27 "/g $CANCION
+sed -i s/"0LA# "/"29 "/g $CANCION
+sed -i s/"0SI "/"31 "/g $CANCION
+sed -i s/"1DO "/"33 "/g $CANCION
+sed -i s/"1DO# "/"35 "/g $CANCION
+sed -i s/"1RE "/"37 "/g $CANCION
+sed -i s/"1RE# "/"39 "/g $CANCION
+sed -i s/"1MI "/"41 "/g $CANCION
+sed -i s/"1FA "/"43 "/g $CANCION
+sed -i s/"1FA# "/"46 "/g $CANCION
+sed -i s/"1SOL "/"49 "/g $CANCION
+sed -i s/"1SOL# "/"52 "/g $CANCION
+sed -i s/"1LA "/"55 "/g $CANCION
+sed -i s/"1LA# "/"58 "/g $CANCION
+sed -i s/"1SI "/"61 "/g $CANCION
+sed -i s/"2DO "/"65 "/g $CANCION
+sed -i s/"2DO# "/"69 "/g $CANCION
+sed -i s/"2RE "/"73 "/g $CANCION
+sed -i s/"2RE# "/"77 "/g $CANCION
+sed -i s/"2MI "/"82 "/g $CANCION
+sed -i s/"2FA "/"87 "/g $CANCION
+sed -i s/"2FA# "/"92 "/g $CANCION
+sed -i s/"2SOL "/"98 "/g $CANCION
+sed -i s/"2SOL# "/"103 "/g $CANCION
+sed -i s/"2LA "/"110 "/g $CANCION
+sed -i s/"2LA# "/"116 "/g $CANCION
+sed -i s/"2SI "/"123 "/g $CANCION
+sed -i s/"3DO "/"130 "/g $CANCION
+sed -i s/"3DO# "/"138 "/g $CANCION
+sed -i s/"3RE "/"146 "/g $CANCION
+sed -i s/"3RE# "/"155 "/g $CANCION
+sed -i s/"3MI "/"164 "/g $CANCION
+sed -i s/"3FA "/"174 "/g $CANCION
+sed -i s/"3FA# "/"185 "/g $CANCION
+sed -i s/"3SOL "/"196 "/g $CANCION
+sed -i s/"3SOL# "/"207 "/g $CANCION
+sed -i s/"3LA "/"220 "/g $CANCION
+sed -i s/"3LA# "/"233 "/g $CANCION
+sed -i s/"3SI "/"246 "/g $CANCION
+sed -i s/"4DO "/"261 "/g $CANCION
+sed -i s/"4DO# "/"277 "/g $CANCION
+sed -i s/"4RE "/"293 "/g $CANCION
+sed -i s/"4RE# "/"311 "/g $CANCION
+sed -i s/"4MI "/"329 "/g $CANCION
+sed -i s/"4FA "/"349 "/g $CANCION
+sed -i s/"4FA# "/"370 "/g $CANCION
+sed -i s/"4SOL"/"392 "/g $CANCION
+sed -i s/"4SOL# "/"415 "/g $CANCION
+sed -i s/"4LA "/"440 "/g $CANCION
+sed -i s/"4LA# "/"466 "/g $CANCION
+sed -i s/"4SI "/"493 "/g $CANCION
+sed -i s/"5DO "/"523 "/g $CANCION
+sed -i s/"5DO# "/"554 "/g $CANCION
+sed -i s/"5RE "/"587 "/g $CANCION
+

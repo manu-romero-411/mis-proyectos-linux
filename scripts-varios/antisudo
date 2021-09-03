@@ -1,0 +1,17 @@
+#!/bin/bash
+## SI ESTAMOS COMO ROOT (U OTRO USUARIO) DESDE sudo, antisudo EJECUTARÁ COMANDOS COMO EL USUARIO QUE INVOCÓ A sudo
+## FECHA DE CREACIÓN: 24 de octubre de 2020
+## FECHAS DE MODIFICACIÓN: 
+
+if [[ ! -z "$@" ]]; then
+	if [[ -z $SUDO_USER ]]; then
+		echo "[ERROR] No has invocado el comando sudo en esta sesión de shell."
+		exit 1
+	else
+		sudo -u $([ $SUDO_USER ] && echo $SUDO_USER || echo $(whoami)) $@
+	fi
+else
+	echo "[INFO] Uso: antisudo <comando> <argumentos>"
+	exit 1
+fi
+exit $?

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Skype
+Comment=Aplicación de mensajería y llamadas sucesora del MSN Messenger
+Icon=skype
+Exec=exo-open https://web.skype.com/
+Categories=Network;
+StartupNotify=true

@@ -1,0 +1,342 @@
+#!/bin/bash
+## POR ESTE SCRIPT PASARÁN LAS FUNCIONES INTELIGENTES QUE TENGO PLANEADAS PARA EL MODOTV
+## FECHA DE CREACIÓN: 3 de noviembre de 2020
+
+## VARIABLES
+
+ERROR_NOWEB="No se ha pasado ninguna web ni servicio como argumento"
+
+## FUNCIONES
+
+function error(){
+	echo "[ERROR] $@. F"
+	exit 1
+}
+
+## SECCIÓN LINKS
+
+function link_loader(){
+	EXCEPCIONES="youtube youtu.be spotify skype twitch"
+	notify-send --icon=applications-internet "LINK" "Abriendo enlace $1"
+	for i in $EXCEPCIONES; do
+		if echo $1 | grep $i; then
+			EXCEP=1
+			break
+		fi
+	done
+
+	## LAS EXCEPCIONES ESTÁN PORQUE NO TODAS LAS WEBAPPS VAN BIEN EN FIREFOX, ASÍ QUE SE DESVÍAN AL NAVEGADOR WEBKIT QUE QUERAMOS (CHROME, CHROMIUM)
+	if [[ $EXCEP == "1" ]]; then
+		link_chromeKiosk $1
+	else
+		link_firefoxKiosk $1
+	fi
+}
+
+function link_firefoxKiosk(){
+	pkill firefox &> /dev/null
+	pkill google-chrome &> /dev/null
+
+	firefox --kiosk "$1"
+	exit $?
+}
+
+function link_chromeKiosk(){
+	pkill google-chrome &> /dev/null
+	pkill firefox &> /dev/null
+
+	if echo $1 | grep "youtube" && ! echo $1 | grep music.youtube.com; then
+		#google-chrome --kiosk "$1" --user-agent="Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/53.0.2785.34 Safari/537.31 SmartTV/8.5"
+		google-chrome --kiosk "$1" --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36 OPR/68.0.3618.173 Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.77 Large Screen Safari/534.24 GoogleTV/092754 youtube.com/tv#"
+		exit $?
+	else
+		google-chrome --kiosk "$1"
+		exit $?
+	fi
+}
+
+function compartido_loader(){
+	enlace=${1#file://}
+	enlaceNuevo=$(cat $enlace | egrep -o 'https?://[^ ]+')
+	rm /tmp/kdeconnectd.*
+
+	if [[ -z $enlaceNuevo ]]; then
+		exit 1
+	fi
+	link_loader $enlaceNuevo
+}
+
+## SECCIÓN APPS
+
+function app_loader(){
+
+	## YOUTUBE TV
+	if 		echo $1 | grep "youtu.be" || echo $1 | grep "youtube.com" ||  echo $1 | grep "youtube"; then
+		app_youtubeTV $1
+
+	## SPOTIFY (USAMOS LA VERSIÓN FLATPAK A ESPERAS DE QUE ALGUNA VEZ ARREGLEN LA VERSIÓN DEB)
+	elif	echo $1 | grep "spotify"; then
+		notify-send --icon=spotify SPOTIFY "Abre en el móvil la app de Spotify para controlar la reproducción desde la TV (selecciona $(hostname))"
+		/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=spotify --file-forwarding com.spotify.Client
+		exit $?
+
+	## KODI
+	elif	echo $1 | grep "kodi"; then
+		notify-send --icon=kodi KODI "Abre en el móvil la app Kore para usarlo como mando multimedia para Kodi"
+		kodi
+		exit $?
+	fi
+}
+
+function app_youtubeTV(){
+	## LINKS youtu.be ABIERTOS CON YOUTUBE TV
+	if echo $1 | grep "youtu.be"; then
+		videoIDprev=$(for i in ".*youtu\.be/\([^\/&?#]\+\)" ".*youtu.\+v[=/]\([^\/&?#]\+\)" ".*youtu.\+embed/\([^\/&?#]\+\)"; do expr "${1}" : "${i}"; done)
+		if [ -n "${videoIDprev}" ]; then
+			videoID=$videoIDprev
+		fi
+
+	## LINKS youtube.com ABIERTOS CON YOUTUBE TV
+	elif echo $1 | grep "youtube.com/watch?v="; then
+		videoID=echo "${1#*v=}"
+	fi
+
+	## CONCATENAR LINK CON CADENA ORIGINAL, O ABRIR LA APP SIN MÁS
+	if [[ -z $videoID ]]; then
+		link=https://www.youtube.com/tv#
+		notify-send --icon=youtube YOUTUBE "Abre en el móvil la app de YouTube y usa la opción Ver en la TV para controlar la retransmisión de vídeos aquí"
+	else
+		link=https://www.youtube.com/tv#/watch?v=$videoID
+		notify-send --icon=youtube YOUTUBE "Abriendo vídeo $link"
+	fi
+
+	## MANDAR EL LINK GENERADO A webapp-wrapper
+	link_loader $link
+	exit $?
+}
+
+## SECCIÓN OTROS
+
+function otro_loader(){
+	case $1 in
+		batocera|retrobox) otro_batocera;;
+		*) exit 1;;
+	esac
+}
+
+function otro_batocera(){
+	## HDD ESTÁ, REINICIAR A BATOCERA
+	if sudo fdisk-list | grep 0xeea132c0; then
+		notify-send --icon=applications-games "RETROBOX" "Se va a iniciar batocera en unos instantes..."
+		sleep 1.4
+		sudo batocera-reboot
+
+	## HDD NO ESTÁ, NO HACER NADA
+	else
+		notify-send --icon=applications-games "RETROBOX" "Debes conectar el HDD externo para poder jugar a los juegos retro"
+		exit 1
+	fi
+}
+
+## SECCIÓN DE ENTRADA Y SALIDA DEL MODOTV
+
+function x_loader(){
+	if ! xfconf-query -c xsettings -p /Xft/DPI > /dev/null 2&>1; then
+		xfconf-query -c xsettings -p /Xft/DPI -s 96 -n -t int
+	fi
+	dpi=$(xfconf-query -c xsettings -p /Xft/DPI)
+	HDMI_STATUS=$(cat /sys/class/drm/card0/*HDMI*/status)
+	x_hdmiSoundToggle
+	case $1 in
+		normal) x_accesoNormal ;;
+		prueba) x_accesoPrueba;;
+		udev) x_accesoUdev;;
+		boot) x_accesoBoot;;
+		sonido) x_hdmiSoundToggle;;
+	esac
+}
+
+function x_accesoNormal(){
+	if [[ $1 == "off"  ]]; then
+		x_modoTVoff
+	elif [[ $1 == "on"  ]]; then
+		x_modoTVon
+	elif [[ -z $1 ]]; then
+		if echo $HDMI_STATUS | grep -w connected; then
+			[[ ${dpi} == "96" ]] && x_modoTVon
+		else
+			notify-send --icon=tv "MODO TV" "Se necesita conectar un cable HDMI para acceder al modoTV"
+		fi
+		[[ ${dpi} == "129" ]] && x_modoTVoff
+	fi
+}
+
+function x_accesoBoot(){
+	sudo batocera-reboot -r
+	if echo $HDMI_STATUS | grep -w connected; then
+		x_accesoUdev
+	else
+		[[ ${dpi} == "96" ]] && x_accesoNormal on
+	fi
+}
+
+function x_accesoPrueba(){
+	[[ ${dpi} == "96" ]] && x_modoTVon prueba
+	[[ ${dpi} == "129" ]] && x_modoTVoff
+}
+
+function x_accesoUdev(){ ## SE DA AL HABER UN EVENTO UDEV CON EL HDMI
+#	sleep 0.5
+	HOME=/home/$(getent passwd 1000 | cut -d: -f1) ## Arriesgada presuposición de que el usuario tendrá UID 1000
+	export DISPLAY=:0
+	export XDG_SESSION_DESKTOP=xfce
+	export XDG_CURRENT_DESKTOP=XFCE
+	export XDG_SESSION_TYPE=x11
+	export DESKTOP_SESSION=xfce
+	export XDG_SESSION_CLASS=user
+	export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+	if echo $HDMI_STATUS | grep -w connected; then
+		[[ ${dpi} == "129" ]] && x_accesoNormal off
+	fi
+}
+
+function x_hdmiSoundToggle(){
+	INPUTS=($(pactl list sink-inputs | grep Input | awk '{print $3}' | sed -r 's/^.{1}//'))
+	#echo $HDMI_STATUS
+	#echo $INPUTS
+
+	if echo $HDMI_STATUS | grep -w connected; then
+		pactl set-card-profile 0 output:hdmi-stereo+input:analog-stereo
+		pactl set-default-sink alsa_output.pci-0000_00_1b.0.hdmi-stereo
+		for i in ${INPUTS[*]}; do
+			pactl move-sink-input $i alsa_output.pci-0000_00_1b.0.hdmi-stereo  &> /dev/null 
+		done
+	else
+		pactl set-card-profile 0 output:analog-stereo+input:analog-stereo
+		pactl set-default-sink alsa_output.pci-0000_00_1b.0.analog-stereo
+		for i in ${INPUTS[*]}; do
+			pactl move-sink-input $i alsa_output.pci-0000_00_1b.0.analog-stereo  &> /dev/null
+		done
+	fi
+}
+
+function x_modoTVon(){
+
+	## NOTIFICACIÓN
+	notify-send --icon=tv "MODO TV" "Iniciando el modoTV..."
+
+	## LA AUDIENCIA ESCUCHA
+	play "$HOME/.local/lib/modo-tv/thx.mp3" &
+
+	## CERRAR COSAS QUE PUEDAN PERTURBAR
+	dropbox stop &
+	pkill nemo
+	pkill compton
+	pkill redshift
+	pkill google-chrome
+	pkill chrome
+	pkill firefox
+	pkill kodi
+	pkill spotify
+	! [[ "$1" == "prueba" ]] && pkill xfce4-terminal
+
+	## COMPROBAR SI QUEREMOS ACCEDER AL MODO DEBUG
+    [[ "$1" == "prueba" ]] && touch $HOME/.modoTV-debug
+
+	## INICIAR KDECONNECT
+	/usr/lib/x86_64-linux-gnu/libexec/kdeconnectd &
+
+	## CONFIGURACIÓN DEL PUNTERO
+	xfconf-query -c xsettings -p /Gtk/CursorThemeName > $HOME/.cursor
+	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s oreo-red
+	xfconf-query -c xsettings -p /Gtk/CursorThemeSize -s 48
+
+	## CONFIGURACIÓN DEL PANEL
+	xfce4-panel-profiles save "$HOME/.local/lib/modo-tv/pcazul.tar.bz2"
+	xfce4-panel-profiles load "$HOME/.local/lib/modo-tv/tv.tar.bz2"
+
+	## CONFIGURACIÓN DEL ESCRITORIO
+
+	#### GUARDAR TEMA DE XFWM4 Y PONER EL QUE SE USA EN MODOTV
+	echo $(xfconf-query -c xfwm4 -p /general/theme) > "$HOME/.xfwm4-theme"
+
+	#### NO DEBE HABER ICONOS EN EL ESCRITORIO
+	killall nemo-desktop
+
+	#### PONER FONDO DE PANTALLA DEL MODOTV Y GUARDAR EL ACTUAL
+	echo $(xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image) > "$HOME/.fondo"
+	xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s "$HOME/.local/lib/modo-tv/pcazul-modoTV.png"
+
+	## CONFIGURACIÓN DE LA PANTALLA
+	! [[ $1 == "prueba" ]] && xrandr --output eDP1 --off
+	xfconf-query -c xsettings -p /Xft/DPI -s 129
+	xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -n -t bool -s true
+
+	## CONFIGURACIONES DE PLANK
+	if killall plank || [[ -d "$HOME/.config/plank" ]]; then
+		touch ~/.plank
+	fi
+	exit 0
+}
+
+function x_modoTVoff(){
+	## NOTIFICACIÓN
+	notify-send --icon=computer-laptop "MODO TV" "Volviendo al escritorio normal..."
+
+	## ABRIR DE NUEVO PROCESOS PERSISTENTES
+
+	dropbox start &
+	redshift-gtk &
+
+	## CERRAR KDECONNECT
+	#killall kdeconnect-indi
+	killall kdeconnectd
+
+	## CONFIGURACIÓN DEL PUNTERO
+	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s $(cat $HOME/.cursor)
+	rm $HOME/.cursor
+	xfconf-query -c xsettings -p /Gtk/CursorThemeSize -s 16
+
+	## CONFIGURCIÓN DE LA PANTALLA
+	! [[ $1 == "prueba" ]] && xrandr --output eDP1 --auto
+	xfconf-query -c xsettings -p /Xft/DPI -s 96
+	xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -n -t bool -s false
+
+	## GUARDAR CONFIG NUEVA DE INTERFAZ SI ESTAMOS EN MODO DEBUG
+	killall plank
+	if [[ -f "$HOME/.modoTV-debug" ]] ; then
+		xfce4-panel-profiles save "$HOME/.local/lib/modo-tv/tv.tar.bz2"
+		rm "$HOME/.modoTV-debug"
+	fi
+
+	## CONFIGURACIÓN DEL PANEL
+	xfce4-panel-profiles load "$HOME/.local/lib/modo-tv/pcazul.tar.bz2"
+
+	## CONFIGURACIÓN DEL ESCRITORIO
+	nemo-desktop &
+
+	#### RECARGAR FONDO DE PANTALLA
+	xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s $(cat "$HOME/.fondo")
+	rm "$HOME/.fondo"
+
+	#### RESTAURAR TEMA DE XFWM
+	xfconf-query -c xfwm4 -p /general/theme -s $(cat "$HOME/.xfwm4-theme")
+	rm "$HOME/.xfwm4-theme"
+
+	if [[ -f ~/.plank ]]; then
+		rm ~/.plank
+		plank-respawn
+	fi
+	exit 0
+}
+
+## LLAMADAS
+
+case $1 in
+	-l|--link) 			if [[ -z "$2" ]]; then error "$ERROR_NOWEB"; exit 1; else link_loader "$2"			; fi;;
+	-s|--share) 		if [[ -z "$2" ]]; then error "$ERROR_NOWEB"; exit 1; else compartido_loader "$2"	; fi;;
+	-a|--aplicacion) 	if [[ -z "$2" ]]; then error "$ERROR_NOWEB"; exit 1; else app_loader "$2"			; fi;;
+	-o|--otro) 			if [[ -z "$2" ]]; then error "$ERROR_NOWEB"; exit 1; else otro_loader "$2"			; fi;;
+	-x|-X) 				if [[ -z "$2" ]]; then error "$ERROR_NOWEB"; exit 1; else x_loader "$2"			; fi;;
+	*) 			echo error; exit 1;;
+esac

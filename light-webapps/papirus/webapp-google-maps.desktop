@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Maps
+Comment=
+Icon=maps
+Exec=exo-open https://www.google.es/maps/
+
+Categories=Network;Utility;
+StartupNotify=true

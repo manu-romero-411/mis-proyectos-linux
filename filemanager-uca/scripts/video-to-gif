@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# Convert a video file to an animated gif (high quality mode).
+#
+# * Put this file into your home binary dir: ~/bin/
+# * Make it executable: chmod +x
+#
+#
+# Required Software:
+# -------------------------
+#   * zenity (for gui mode - default)
+#   * ffmpeg
+#
+#
+# Thunar Integration
+# ------------------------
+#
+#   Command:      ~/bin/thunar-video-to-gif.sh -f %f -t %n
+#   File Pattern: *
+#   Appear On:    Video Files
+#
+#
+# Usage:
+# -------------------------
+#   thunar-video-to-gif.sh -f <filename> [-c]
+#
+#     required:
+#      -f    input filename
+#
+#     optional:
+#      -c    no-gui, show console output (zenity not required)
+#            default is to show gui
+#
+#
+# Note:
+# -------------------------
+#
+# Feel free to adjust/improve and commit back to:
+#  https://github.com/cytopia/thunar-custom-actions
+#
+

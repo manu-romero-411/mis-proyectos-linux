@@ -1,0 +1,90 @@
+#!/bin/bash
+
+# %f %w
+
+## ¿EXISTE EL ARCHIVO?
+
+file=$1
+if [ ! -f "${file}" ] && [[ "$2" != "non-existent" ]]; then
+	zenity --text="Archivo inexistente" --error
+	exit 1
+fi
+
+## DETECTOR DE EXTENSIÓN DE ARCHIVOS
+
+extension=$(echo "${file}" | cut -d'.' -f2 )
+case $extension in
+	doc|docx|odt) ICON=x-office-document ;;
+	ppt|pptx|odp) ICON=x-office-presentation ;;
+	xls|xlsx|ods) ICON=x-office-spreadsheet ;;
+	pdf) ICON=application-pdf ;;
+	jpg|png) ICON=image-x-generic ;;
+	*) ICON=application-x-zerosize ;;
+esac
+
+fileName=$(echo "${file}" | sed 's@.*/@@'  | grep -Po '.*(?=\.)')
+ancladosDir=$HOME/.local/share/applications
+desktopFileName="${ancladosDir}/pinned.${fileName}.desktop"
+
+## GENERAR ARCHIVO .DESKTOP DEL ARCHIVO ANCLADO
+
+if [[ ! -f "$desktopFileName" ]] && ! echo "${file}" | grep .desktop; then
+	echo -e "[Desktop Entry]
+Version=1.0
+Name=${fileName}.${extension}
+Exec=load-pinned \"${file}\"
+Terminal=false
+Type=Application
+Icon=${ICON}
+Comment=Ubicación: $(dirname ${file}) 
+StartupNotify=true
+Categories=archivos-anclados;
+Actions=borrar;ir;
+
+[Desktop Action borrar]
+Icon=stock_trash_empty
+Name=Desanclar
+Exec=anclar-documentos \"$desktopFileName\"
+
+[Desktop Action ir]
+Icon=stock_folder
+Name=Abrir la ubicación del archivo
+Exec=anclar-documentos \"$desktopFileName\" carpeta" > "${desktopFileName}"
+	chmod +x "${desktopFileName}"
+	notify-send "ARCHIVOS ANCLADOS" "El archivo '${file}' ha sido anclado correctamente a Documentos Anclados." --icon=${ICON} 
+	exit 0
+	
+## ELIMINAR ANCLAJES A ARCHIVOS QUE SE HAN BORRADO
+
+elif [[ $2 == "non-existent" ]]; then
+	if yad --image application-x-zerosize --title "Archivo anclado inexistente" --button=Sí:0 --button=No:1 --text "El archivo '${file}' no se encuentra disponible. Es posible que haya sido eliminado, cambiado de nombre o de directorio. ¿Quieres borrar este acceso directo?" --geometry=420x50+600+340 --window-icon=/usr/share/icons/Papirus/32x32/mime/application-x-zerosize.svg; then
+		rm "${desktopFileName}"
+		notify-send "ARCHIVOS ANCLADOS" "El archivo '${file}' ha sido desanclado." --icon=trashindicator
+		exit 0
+	else
+		exit 1
+	fi
+
+## TRABAJO CON LOS ARCHIVOS DE LA CARPETA DE ANCLADOS
+
+elif echo "${file}" | grep .desktop; then
+	nombreArchivoOriginal=$(grep load-pinned "${file}"| cut -c 18-)
+	carpeta=$(echo $(dirname "$nombreArchivoOriginal") | tr -d '"')
+	if [[ "$2" == "carpeta" ]]; then
+		xdg-open file://$(urlencode -m $carpeta)
+	elif yad --image application-x-zerosize --title "Eliminar documento anclado" --button=Sí:0 --button=No:1 --text "¿Quieres eliminar este documento anclado?" --geometry=420x50+683+384 --window-icon=/usr/share/icons/Papirus/32x32/mime/application-x-zerosize.svg; then
+		rm "${file}"
+		notify-send "ARCHIVOS ANCLADOS" "El archivo '${nombreArchivoOriginal}' ha sido desanclado." --icon=trashindicator
+		exit 0
+	else
+		exit 1
+	fi
+
+## ELIMINAR ANCLAJES DESDE EL PROPIO ARCHIVO
+
+else
+	rm "${desktopFileName}"
+	notify-send "ARCHIVOS ANCLADOS" "El archivo ${file} ha sido desanclado." --icon=trashindicator
+	exit 0
+fi
+exit 0

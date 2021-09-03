@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Paste a file directly to gist.
+#
+# * Put this file into your home binary dir: ~/bin/
+# * Make it executable: chmod +x
+#
+#
+# Required Software:
+# -------------------------
+#   * zenity
+#   * gist
+#   * xclip
+#
+#
+# Thunar Integration
+# ------------------------
+#
+#   Command:      ~/bin/thunar-paste-to-gist.sh -f %f
+#   File Pattern: *
+#   Appear On:    Text Files
+#
+# Note:
+# -------------------------
+#
+# Feel free to adjust/improve and commit back to:
+#  https://github.com/cytopia/thunar-custom-actions
+#
+

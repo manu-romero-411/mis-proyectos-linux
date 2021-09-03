@@ -1,0 +1,73 @@
+#!/bin/bash
+## SCRIPT PARA INVOCAR HORARIO DE TIEMPO LIBRE CON UN ATAJO DE TECLADO
+## FECHA: 25 de noviembre de 2019
+
+function horario_lectivos(){
+	HORARIO="⦁ 07:00 a 07:30 → Desayunación
+⦁ 07:30 a 13:30 (15:30) → UJA + Desplazamientos
+⦁ 13:30 (15:30) a 16:30 → Almuerzo + Randomized Activity (Lite)
+⦁ 16:30 a 19:00 (19:30) → Estudio
+⦁ 19:00 (19:30) a 20:00 → Cena
+⦁ 20:00 a 22:00 	→ Randomized Activity (Completo)"
+}
+
+function horario_viernes(){
+	HORARIO="🕛 07:00 a 07:30 ➡ 🥛 Desayunación
+🕛 07:30 a 08:30 ➡ 🚗🚌 Desplazamiento a UJA
+🕣 08:30 a 09:30 ➡ 🏫 UJA
+🕧 12:30 a 13:15 → Estudio
+🕐 13:15 a 14:00 → Almuerzo
+🕑 14:00 a 16:00 → Estudio
+🕓 16:00 a 16:30 → Visualización de redes sociales
+🕟 16:30 a 20:00 → Asociación + Desplazamientos
+🕛 20:00 a 20:30 → Cena
+🕛 20:30 a 22:00 → Randomized Activity (Completo)"
+}
+
+function horario_festivos(){
+	HORARIO="⦁ 07:30 a 08:30 → Desayunación
+⦁ 08:30 a 11:30 → Randomized Activity (Completo)
+⦁ 11:30 a 13:30 → Estudio
+⦁ 13:30 a 14:00 → Almuerzo
+⦁ 14:00 a 14:45 → Randomized Activity (Lite)
+⦁ 14:45 a 16:45 → Estudio
+⦁ 16:45 a 20:00 → Hora hábil de salidas y quedadas + Randomized Activity (Completo)
+⦁ 20:00 a 20:30 → Cena
+⦁ 20:30 a 22:00 → Randomized Activity (Completo)"
+}
+
+function es_festivo(){
+	# CÓDIGOS MMDD PARA FECHAS FESTIVAS
+	navidad="1221 1222 1223 1224 1225 1226 1227 1228 1229 1230 1231 0101 0102 0103 0104 0105 0106"
+	semana_santa="0404 0405 0406 0407 0408 0409 0410 0411 0412" ## SEMANA SANTA DE 2020
+	dias_festivos="${navidad} ${semana_santa} 0228 0501 0611 1012 1018 1101 1206 1208"
+
+	# ¿QUÉ DÍA ES HOY?
+	hoy=$(date +%m%d)
+
+	# ¿ES HOY FESTIVO?
+	if echo ${dias_festivos} | grep $hoy > /dev/null; then
+		horario_festivos
+	else
+		es_festivo=0
+	fi
+}
+
+dia=$(date +%a)
+es_festivo
+if [[ ${es_festivo} == 0 ]]; then
+	case $dia in
+		vie)horario_viernes;;
+		sáb)horario_festivos;;
+		dom)horario_festivos;;
+		*)horario_lectivos;;
+	esac
+fi
+unset es_festivo
+icon=$(($RANDOM / 14 % 14 % 3))
+[[ $icon == 0 ]] && icon=gnome-calendar
+[[ $icon == 1 ]] && icon=gnome-todo
+[[ $icon == 2 ]] && icon=clock
+notify-send Horario "$HORARIO" -i $icon
+
+exit 0

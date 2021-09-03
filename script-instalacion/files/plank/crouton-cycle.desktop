@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Alternar entre Xubuntu y Chrome
+Comment=
+Exec=croutoncycle cros
+Icon=chrome-app-list
+Path=
+Terminal=false
+StartupNotify=false

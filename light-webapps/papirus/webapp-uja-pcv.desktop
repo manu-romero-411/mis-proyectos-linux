@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=UJA - Equipos virtuales
+Comment=Equipos virtuales de la UJA, con Windows 10 y algunas aplicaciones útiles
+Icon=computer
+Exec=exo-open https://pcv.ujaen.es
+Categories=Network;uja-apps;
+StartupNotify=true

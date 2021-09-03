@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=MiTele
+Comment=Servicio de TV extra de Mierdaset
+Icon=/home/manuel/.icons/app-icons/mitele.png
+Exec=exo-open https://mitele.es
+Categories=Network;AudioVideo;
+
+StartupNotify=true

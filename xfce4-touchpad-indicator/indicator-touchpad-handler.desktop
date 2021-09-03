@@ -1,0 +1,11 @@
+## DEBEMOS PONER ESTE .DESKTOP EN ~/.local/share/applications Y HACER UN LANZADOR EN EL PANEL, Y BUSCAR "Estado del panel táctil" PARA PONERLO
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Estado del panel táctil
+Comment=Desactivado (pulsa aquí para activar)
+Exec=bash -c "touchpad-indicator"
+Icon=/usr/share/icons/Papirus-Dark/symbolic/devices/input-mouse-symbolic.svg
+Path=
+Terminal=false
+StartupNotify=true

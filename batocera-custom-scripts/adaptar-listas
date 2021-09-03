@@ -1,0 +1,73 @@
+#!/bin/bash
+## ADAPTAR LISTAS DE JUEGOS SEGUN LA MAQUINA
+## FECHA: 11 de mayo de 2020
+
+function poner(){
+	for arg; do
+		if grep "$arg.hide=1" /userdata/system/batocera.conf; then
+			echo "encontrado para poner $arg"
+			sed -i s#$arg.hide=1#$arg.hide=0#g /userdata/system/batocera.conf
+		elif grep "$arg.hide=0" /userdata/system/batocera.conf; then
+			echo "encontrado para poner $arg ya puesto"
+			true
+		else
+			echo "nueva plataforma poner $arg"
+			echo "$arg.hide=0" >> /userdata/system/batocera.conf
+		fi
+	done	
+}
+
+function quitar(){
+	for arg; do
+		if grep "$arg.hide=0" /userdata/system/batocera.conf; then
+			echo "encontrado para quitar $arg"
+			sed -i s#$arg.hide=0#$arg.hide=1#g /userdata/system/batocera.conf
+		elif grep "$arg.hide=1" /userdata/system/batocera.conf; then
+			echo "encontrado para quitar $arg ya puesto"
+			true
+		else
+			echo "nueva plataforma quitar $arg"
+			echo "$arg.hide=1" >> /userdata/system/batocera.conf
+		fi
+	done	
+}
+
+function pc_poner(){
+	poner amstradcpc dos scummvm msx msx1 msx2 msx2+ x68000 o2em amigacdtv c64
+}
+
+function pc_quitar(){
+	quitar amstradcpc dos scummvm msx msx1 msx2 msx2+ x68000 o2em amigacdtv c64
+}
+
+function armatoste(){
+	quitar n64 psx dreamcast psp pc
+	if [[ $(cambiar-display -n 2>1) == "LVDS1" ]]; then
+		pc_poner
+	else
+		pc_quitar
+	fi
+}
+
+function pcgrande(){
+	poner n64 psx dreamcast psp pc
+	pc_poner
+}
+
+function pcazul (){
+	quitar psp
+	poner n64 psx dreamcast pc
+	if [[ $(cambiar-display -n 2>1) == "eDP1" ]]; then
+		pc_poner
+	else
+		pc_quitar
+	fi
+}
+
+function default(){
+	poner n64 psx dreamcast psp
+	quitar pc-modernos
+	pc_poner
+}
+
+$(detectar-pc)

@@ -1,0 +1,13 @@
+#!/bin/bash
+## CONSTRUCTOR DE ARCHIVO .asoundrc PARA BATOCERA
+## FECHA: 10 de mayo de 2020
+
+case $1 in
+	pcazul) SOUND=3;;
+	pcgrande) SOUND=7;;
+	default) SOUND=0;;
+	*) SOUND=0;;
+esac
+echo "	    pcm.!default { type plug slave { pcm \"hw:0,$SOUND\" } }
+	    ctl.!default { type hw card 0 }"
+

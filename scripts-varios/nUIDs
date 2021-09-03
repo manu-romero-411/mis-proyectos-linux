@@ -1,0 +1,41 @@
+#!/bin/bash
+## ANALIZADOR DEL ARCHIVO /etc/passwd QUE COMPRUEBE SI EXISTEN UIDs DADOS COMO ARGUMENTOS
+## SCRIPT SUJETO A EVALUACIÓN ACADÉMICA DE LA ASIGNATURA "SISTEMAS OPERATIVOS" DEL GRADO EN INGENIERÍA INFORMÁTICA DE LA UJA
+## FECHA: 28 de noviembre de 2019
+
+## NOTA: NO FUNCIONA DEL TODO BIEN
+
+
+i=1
+j=1
+k=1
+if [[ $# == 0 ]]; then
+	echo "[ERROR] Se necesitan argumentos."
+	echo "[INFO] uso: ./nUIDs uid1 uid2 .."
+	exit 1
+fi
+#while [[ $(($z)) != $# ]]; do
+for z in $*; do
+	while [ $i -le $(cat /etc/passwd | wc -l) ]; do
+		string=$(cat /etc/passwd | head -n $i | tail -n 1)
+		while [[ $(echo $string | cut -c $j) != ":"  ]];do
+			j=$(($j + 1))
+		done
+		h=$(($j - 1))
+		login=$(echo $string | cut -c 1-$h)
+		j=$(($j + 3))
+		recorte1=$(echo $string | cut -c $j-)
+		while [[ $(echo $recorte1 | cut -c $k) != ":"  ]];do
+			k=$(($k + 1))
+		done
+		k=$(($k - 1))
+		recorte2=$(echo $recorte1 | cut -c -$k)
+		if [[ $recorte2 == $z ]]; then
+			echo "[INFO] Encontrado usuario $login con UID $z"
+		else
+			echo ""
+		fi
+		i=$(($i + 1))
+	done
+done
+exit 0

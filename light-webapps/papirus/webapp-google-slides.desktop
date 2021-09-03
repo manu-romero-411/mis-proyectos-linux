@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Docs - Presentaciones
+Comment=Presentaciones
+Icon=google-slides
+Exec=exo-open https://docs.google.com/presentation/
+Categories=Network;Office;Presentation;
+StartupNotify=true

@@ -1,0 +1,6 @@
+[Sound Theme]
+Name=Dream
+Directories=stereo
+
+[stereo]
+OutputProfile=stereo

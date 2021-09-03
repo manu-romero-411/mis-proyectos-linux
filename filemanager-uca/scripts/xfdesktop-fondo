@@ -1,0 +1,13 @@
+#!/bin/bash
+## CAMBIADOR DE FONDO DE PANTALLA EN XFCE
+## FECHA DE CREACIÓN: 1 de noviembre de 2020
+## FECHAS DE MODIFICACIÓN: 
+
+## VARIABLES
+
+WOK=$(xdotool get_desktop)
+
+## CÓDIGO
+
+xfconf-query -c xfce4-desktop -p /backdrop/screen$WOK/monitor$WOK/workspace$WOK/last-image -n -t string -s "$(realpath $1)" || exit 1
+exit 0

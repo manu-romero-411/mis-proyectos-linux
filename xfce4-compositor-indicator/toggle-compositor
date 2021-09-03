@@ -1,0 +1,18 @@
+#!/bin/bash
+## ALTERNAR LA ACTIVACIÓN DEL COMPOSITOR
+## FECHA: 26 de junio de 2020
+
+if [[ $1 != "off" ]] && [[ $1 != "on" ]] && [[ ! -z $1 ]]; then
+	echo "[ERROR] Argumento inválido. Solo acepto off y on, o nada"
+	exit 1
+fi
+
+ACTIVADO=$(xfconf-query -c xfwm4 -p /general/use_compositing)
+if ([[ $ACTIVADO == "true" ]] && [[ -z $1 ]])|| [[ $1 == "off" ]]; then
+	xfconf-query -c xfwm4 -p /general/use_compositing -s false; 
+elif ([[ $ACTIVADO == "false" ]] && [[ -z $1 ]]) || [[ $1 == "on" ]]; then
+	xfconf-query -c xfwm4 -p /general/use_compositing -s true; 
+fi
+
+echo $(xfconf-query -c xfwm4 -p /general/use_compositing) > $HOME/.config/compositor
+exit 0;

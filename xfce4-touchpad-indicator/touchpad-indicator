@@ -1,0 +1,24 @@
+#!/bin/bash
+## SCRIPT QUE EMULARÁ UN INDICADOR DE PANEL TÁCTIL EN EL PANEL DE XFCE
+## FECHA DE CREACIÓN: 19 de febrero de 2020
+## FECHAS DE MODIFICACIÓN:
+
+archivos=$(ls $HOME/.config/xfce4/panel/*/*.desktop | tr " " "\n" | tr "\n" " ")
+
+COLOCADO=0
+for i in $archivos; do
+	if grep "Estado del panel táctil" "$i" && [[ $COLOCADO != 1 ]]; then
+		touchpad-on-off
+		if [[ $(cat "$HOME/.config/touchpad") -eq 0 ]]; then
+			sed -i s#-touchpad#-mouse#g "$i"
+			sed -i s#Activado#Desactivado#g "$i"
+                        sed -i s#" desactivar"#" activar"#g "$i"
+
+		elif [[ $(cat "$HOME/.config/touchpad") -eq 1 ]]; then
+                        sed -i s#-mouse#-touchpad#g "$i"
+			sed -i s#Desactivado#Activado#g "$i"
+			sed -i s#" activar"#" desactivar"#g "$i"
+		fi
+		COLOCADO=1
+	fi
+done

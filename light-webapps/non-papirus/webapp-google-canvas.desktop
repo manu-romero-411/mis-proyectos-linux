@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Canvas
+Comment=Editor de dibujos e imágenes online
+Icon=/home/manuel/.icons/app-icons/chrome-canvas.png
+Exec=exo-open https://canvas.apps.chrome/
+Categories=Network;Utility;Graphics;
+StartupNotify=true

@@ -1,0 +1,29 @@
+#!/bin/bash
+## QUITA CARACTERES CONFLICTIVOS DEL NOMBRE DE ARCHIVOS
+## FECHA DE CREACIÓN: 5 de agosto de 2020
+## FECHA DE MODIFICACIÓN: 
+
+
+if [ $# -eq 0 ]; then
+	echo "[ERROR] No se han pasado argumentos"
+	exit 1
+fi
+#echo
+#echo
+#echo
+#echo $#
+
+for arg; do
+	archivo=$arg
+#	echo $archivo
+#	ls "$archivo"
+
+	carpeta=$(dirname "$archivo")
+#	echo $carpeta
+
+	nuevo=$(basename "$archivo" | tr -s ' ' | tr ' A-Z' '-a-z' | tr -s '-' | tr -c '[:alnum:][:cntrl:].' '-')
+#	echo $nuevo
+
+	mv "$archivo" "$carpeta/$nuevo"
+done
+exit 0

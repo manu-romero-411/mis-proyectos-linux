@@ -1,0 +1,24 @@
+#!/bin/bash
+## SCRIPT QUE EMULARÁ UN INDICADOR DEL ESTADO DEL COMPOSITOR EN EL PANEL DE XFCE
+## FECHA DE CREACIÓN: 26 de junio de 2020
+## FECHAS DE MODIFICACIÓN:
+
+archivos=$(ls $HOME/.config/xfce4/panel/*/*.desktop | tr " " "\n" | tr "\n" " ")
+
+COLOCADO=0
+for i in $archivos; do
+	if grep "Efectos gráficos" "$i" && [[ $COLOCADO != 1 ]]; then
+		toggle-compositor
+		echo $i
+		if [[ $(cat "$HOME/.config/compositor") == "false" ]]; then
+			echo falso
+			sed -i s#Activados#Desactivados#g "$i"
+                        sed -i s#" desactivar"#" activar"#g "$i"
+
+		elif [[ $(cat "$HOME/.config/compositor") == "true" ]]; then
+			sed -i s#Desactivados#Activados#g "$i"
+			sed -i s#" activar"#" desactivar"#g "$i"
+		fi
+		COLOCADO=1
+	fi
+done

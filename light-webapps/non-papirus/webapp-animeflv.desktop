@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=AnimeFLV
+Comment=Ver anime
+Icon=/home/manuel/.icons/app-icons/animeflv.png
+Exec=exo-open https://animeflv.ru
+Categories=Network;AudioVideo;
+
+StartupNotify=true

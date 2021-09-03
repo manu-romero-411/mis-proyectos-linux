@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Wattpad
+Comment=Creación de historias, libros contando cosas, etc.
+Categories=Network;cositas-personales;
+Icon=/home/manuel/.icons/app-icons/wattpad.png
+Exec=exo-open https://www.wattpad.com/home
+StartupNotify=true

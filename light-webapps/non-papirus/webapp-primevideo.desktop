@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Amazon Prime Video
+Comment=Series y películas
+Icon=/home/manuel/.icons/app-icons/primevideo.png
+#Exec=exo-open https://www.primevideo.com/region/eu/ref=av_auth_return_redir
+Exec=exo-open https://www.primevideo.com/region/eu/ref=av_auth_return_redir
+Categories=Network;AudioVideo;
+
+StartupNotify=true

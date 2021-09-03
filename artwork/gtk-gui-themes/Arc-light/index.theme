@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Arc-light
+Comment=Versión clara del tema Arc, modificado por Manu Romero
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Arc-light
+MetacityTheme=Arc
+IconTheme=Papirus
+CursorTheme=cz-viator-light
+ButtonLayout=menu:minimize,maximize,close

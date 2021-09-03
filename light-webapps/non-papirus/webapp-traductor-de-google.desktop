@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Translate
+Comment=Traductor de Google
+Icon=/home/manuel/.icons/app-icons/google-translate.png
+Exec=exo-open https://translate.google.es
+Categories=Network;Utility;
+StartupNotify=true

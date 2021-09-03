@@ -1,0 +1,15 @@
+#!/bin/bash
+## RESPAWNEAR PLANK AL INICIO DE SESIÓN (WORKAROUND PARA XFCE)
+## FECHA DE CREACIÓN: 7 de septiembre de 2020 (9 días tras el cisma)
+## FECHA DE MODIFICACIÓN: 7 de febrero de 2021 (no me he recuperado del cisma)
+
+killall plank
+killall bamfdaemon
+sleep 0.25
+if [[ $(lsb_release -si) == "Debian" ]]; then
+	/usr/libexec/bamf/bamfdaemon &
+elif [[ $(lsb_release -si) == "Ubuntu" ]]; then
+	/usr/lib/x86_64-linux-gnu/bamf/bamfdaemon &
+fi
+sleep 0.5
+plank &

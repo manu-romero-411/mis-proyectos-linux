@@ -1,0 +1,38 @@
+#! /bin/bash
+
+function crearCarpeta(){
+	# Gets the new folder name
+	DIRNAME=$(zenity --entry --width 600 --title="Crear nueva carpeta" --text="Introduce el nombre de la nueva carpeta")
+
+	# If no name was provided
+	if [ -z "$DIRNAME" ]; then
+		exit 1
+	fi
+
+	# If the directory already exists
+	if [ -e "$1/$DIRNAME" ]; then
+		zenity --error --width 350 --title="Error al crear la carpeta" --text="El directorio $DIRNAME ya existe"
+		exit 1
+	fi
+}
+
+DIROWNER=$(stat -c %U "$1")
+if [ "$DIROWNER" != "$USER" ]; then
+#    #FILEPATH=$(dirname "$BASH_SOURCE")
+#    SUDO_ASKPASS=$(zenity --password --width 450 --title="Autenticación" --text="Introduce la contraseña de superusuario para continuar")
+#    export SUDO_ASKPASS
+#    sudo -A mkdir "$1/$DIRNAME"
+#    sudo mv "${@:2}" -t "$1/$DIRNAME" 
+#    exit 0
+    
+    zenity --error --width 350 --title="Error al crear la carpeta" --text="Este usuario no es propietario del directorio, por lo tanto se cancela la acción por motivos de seguridad."
+    exit 1
+else
+	crearCarpeta $@
+    mkdir "$1/$DIRNAME"
+    mv "${@:2}" -t "$1/$DIRNAME"
+    sleep 5
+	exit 0
+fi
+
+sleep 5

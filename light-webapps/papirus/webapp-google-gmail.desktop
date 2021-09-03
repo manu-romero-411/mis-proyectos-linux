@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Correo electrónico Gmail
+Comment=Correo electrónico de Google
+Icon=gmail
+Exec=exo-open https://mail.google.com
+
+Categories=Network;Office;
+StartupNotify=true

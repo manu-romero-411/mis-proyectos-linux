@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Categories=Network;Education;
+Name=Diccionario de la RAE
+Comment=Diccionario de la lengua española
+Icon=/home/manuel/.icons/app-icons/rae.png
+Exec=exo-open http://dle.rae.es/
+StartupNotify=true
