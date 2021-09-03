@@ -3,7 +3,7 @@
 ## FECHA DE CREACIÓN: 5  de junio de 2021
 
 function error(){
-	echo "$@. F"
+	echo "[ERROR] $@. F"
 	exit 1
 }
 

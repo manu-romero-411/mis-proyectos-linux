@@ -3,10 +3,7 @@
 ## FECHA DE CREACIÓN: 25 de enero de 2021
 
 function error(){
-	echo "[ERROR] Algo malo ha ocurrido"
-	echo
-	echo "F"
-	echo
+	echo "[ERROR] $@. F"
 	exit 1
 }
 

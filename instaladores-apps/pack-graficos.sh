@@ -10,10 +10,7 @@ ROOTDIR=$(realpath $(dirname $0)/..)
 ## FUNCIONES
 
 function error(){
-	echo "[ERROR] Algo malo ha ocurrido"
-	echo
-	echo "F"
-	echo
+	echo "[ERROR] $@. F"
 	exit 1
 }
 

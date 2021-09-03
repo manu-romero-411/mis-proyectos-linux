@@ -31,15 +31,28 @@ sudo rm -r /opt/Telegram" > /opt/Telegram/telegram-uninstall.sh
 }
 
 function iconoMenu(){
+    [[ ! -d "/etc/skel/.local" ]] && sudo mkdir "/etc/skel/.local"
+	[[ ! -d "/etc/skel/.local/share" ]] && sudo mkdir "/etc/skel/.local/share"
+	[[ ! -d "/etc/skel/.local/share/applications" ]] && sudo mkdir "/etc/skel/.local/share/applications"
+	sudo su -c 'echo "[Desktop Entry]
+Version=1.0
+Name=Telegram Desktop
+Comment=Official desktop version of Telegram messaging app
+TryExec=/opt/Telegram/Telegram
+Exec=/opt/Telegram/Telegram -- %u
+Icon=telegram
+Terminal=false
+StartupWMClass=TelegramDesktop
+Type=Application
+Categories=Chat;Network;InstantMessaging;Qt;
+MimeType=x-scheme-handler/tg;
+Keywords=tg;chat;im;messaging;messenger;sms;tdesktop;
+X-GNOME-UsesNotifications=true" > /etc/skel/.local/share/applications/telegram.desktop'
+
 	[[ ! -d "$HOME/.local" ]] && mkdir "$HOME/.local"
 	[[ ! -d "$HOME/.local/share" ]] && mkdir "$HOME/.local/share"
 	[[ ! -d "$HOME/.local/share/applications" ]] && mkdir "$HOME/.local/share/applications"
-        cp $ROOTDIR/files/telegram.desktop $HOME/.local/share/applications/telegram.desktop
-
-	[[ ! -d "/etc/skel/.local" ]] && sudo mkdir "/etc/skel/.local"
-	[[ ! -d "/etc/skel/.local/share" ]] && sudo mkdir "/etc/skel/.local/share"
-	[[ ! -d "/etc/skel/.local/share/applications" ]] && sudo mkdir "/etc/skel/.local/share/applications"
-        sudo cp $ROOTDIR/files/telegram.desktop /etc/skel/.local/share/applications/telegram.desktop
+	cp /etc/skel/.local/share/applications/telegram.desktop $HOME/.local/share/applications/telegram.desktop
 }
 
 function desinstalar(){
