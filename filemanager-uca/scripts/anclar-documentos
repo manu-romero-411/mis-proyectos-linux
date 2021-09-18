@@ -27,7 +27,7 @@ ancladosDir=$HOME/.local/share/applications
 desktopFileName="${ancladosDir}/pinned.${fileName}.desktop"
 
 ## GENERAR ARCHIVO .DESKTOP DEL ARCHIVO ANCLADO
-
+notify-send "$file"
 if [[ ! -f "$desktopFileName" ]] && ! echo "${file}" | grep .desktop; then
 	echo -e "[Desktop Entry]
 Version=1.0
@@ -36,7 +36,7 @@ Exec=load-pinned \"${file}\"
 Terminal=false
 Type=Application
 Icon=${ICON}
-Comment=Ubicación: $(dirname ${file}) 
+Comment=Ubicación: $(dirname "${file}")
 StartupNotify=true
 Categories=archivos-anclados;
 Actions=borrar;ir;
@@ -53,7 +53,7 @@ Exec=anclar-documentos \"$desktopFileName\" carpeta" > "${desktopFileName}"
 	chmod +x "${desktopFileName}"
 	notify-send "ARCHIVOS ANCLADOS" "El archivo '${file}' ha sido anclado correctamente a Documentos Anclados." --icon=${ICON} 
 	exit 0
-	
+
 ## ELIMINAR ANCLAJES A ARCHIVOS QUE SE HAN BORRADO
 
 elif [[ $2 == "non-existent" ]]; then
