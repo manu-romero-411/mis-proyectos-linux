@@ -1,0 +1,12 @@
+#!/bin/bash
+
+SKYPE_GPG_LINEA=$(($(apt-key list 2>/dev/null | grep -wn Skype | cut -d":" -f1) - 1))
+if [[ $SKYPE_GPG_LINEA != "-1" ]]; then
+	SKYPE_GPG_1=$(apt-key list 2>/dev/null | head -n $SKYPE_GPG_LINEA | tail -n 1 | rev | cut -d" " -f2 | rev)
+	SKYPE_GPG_2=$(apt-key list 2>/dev/null | head -n $SKYPE_GPG_LINEA | tail -n 1 | rev | cut -d" " -f1 | rev)
+	apt-key export ${SKYPE_GPG_1}${SKYPE_GPG_2} | gpg --dearmour > /tmp/skype.gpg
+	sudo apt-key del ${SKYPE_GPG_1}${SKYPE_GPG_2}
+	[[ ! -f "/usr/share/keyrings/skype.gpg" ]] && sudo mv "/tmp/skype.gpg" "/usr/share/keyrings/skype.gpg"
+	echo "deb [signed-by=/usr/share/keyrings/skype.gpg arch=amd64] https://repo.skype.com/deb stable main" | sudo tee /etc/apt/sources.list.d/skype-stable.list
+	sudo apt-get update
+fi

@@ -5,7 +5,7 @@
 
 ## VARIABLES
 
-ROOTDIR=$(realpath $(dirname $0)/..)
+ROOTDIR=$(realpath $(dirname $0))
 
 ## FUNCIONES
 
@@ -26,12 +26,13 @@ function instalador(){
 }
 
 function config(){
-	$ROOTDIR/tweaks/tlp-config.sh
+	$ROOTDIR/../tweaks-y-workarounds/tlp-config.sh
 }
 
 ## LLAMADAS
 
+check_root
 instalador
-config
+#config
 
 exit 0

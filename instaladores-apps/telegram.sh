@@ -1,81 +1,69 @@
 #!/bin/bash
 ## INSTALADOR DE TELEGRAM
 ## FECHA DE CREACIÓN: 23 de octubre de 2020
-## FECHAS DE MODIFICACIÓN:
+## FECHAS DE MODIFICACIÓN: 28 de agosto de 2022
 
 ## VARIABLES
 
-ROOTDIR=$(realpath $(dirname $0)/..)
+ROOTDIR=$(realpath $(dirname $0))
+FLATPAK_ID=org.telegram.desktop
+USUARIO=$(id -nu 1000)
+GRUPO=$(id -ng 1000)
 
 ## FUNCIONES
 
 function error(){
-        echo "[ERROR] $@. F"
-        exit 1
+	echo "[ERROR] $@. F"
+	exit 1
 }
 
-function descargar(){
+function check_root(){
+        if [[ $(whoami) != root ]]; then
+                echo "[MALAMENTE] No eres root"
+                error
+        fi
+}
+
+function instalador(){
 	wget -O- https://telegram.org/dl/desktop/linux | sudo tar xJ -C /opt/
-        sudo chown -R $(whoami):$(whoami) /opt/Telegram /opt/Telegram/*
-	sudo ln -s /opt/Telegram/Telegram /usr/local/bin/telegram
-	sudo ln -s /opt/Telegram/Telegram /usr/local/bin/telegram-desktop
-	echo "cd /
-rm $HOME/.local/share/applications/appimagekit_*-Telegram_Desktop.desktop
-rm $HOME/.local/share/applications/telegram*.desktop
-rm -r $HOME/.local/share/TelegramDesktop
-sudo rm /etc/skel/.local/share/applications/telegram.desktop
-sudo rm /usr/local/bin/telegram
-sudo rm /usr/local/bin/telegram-desktop
-sudo rm -r /opt/Telegram" > /opt/Telegram/telegram-uninstall.sh
-	chmod 755 /opt/Telegram/telegram-uninstall.sh
+        chown -R $USUARIO:$GRUPO "/opt/Telegram" /opt/Telegram/*
+	ln -s "/opt/Telegram/Telegram" "/usr/local/bin/telegram"
+	ln -s "/opt/Telegram/Telegram" "/usr/local/bin/telegram-desktop"
+	cp "$ROOTDIR/aux-files/telegram/telegram-uninstall.sh" "/opt/Telegram/telegram-uninstall.sh"
+	chmod 755 "/opt/Telegram/telegram-uninstall.sh"
+	mkdir -p "/etc/skel/.local/share/applications"
+	cp "$ROOTDIR/aux-files/telegram/telegram-desktop.desktop" "/etc/skel/.local/share/applications"
+	telegram & exit 0
 }
 
-function iconoMenu(){
-    [[ ! -d "/etc/skel/.local" ]] && sudo mkdir "/etc/skel/.local"
-	[[ ! -d "/etc/skel/.local/share" ]] && sudo mkdir "/etc/skel/.local/share"
-	[[ ! -d "/etc/skel/.local/share/applications" ]] && sudo mkdir "/etc/skel/.local/share/applications"
-	sudo su -c 'echo "[Desktop Entry]
-Version=1.0
-Name=Telegram Desktop
-Comment=Official desktop version of Telegram messaging app
-TryExec=/opt/Telegram/Telegram
-Exec=/opt/Telegram/Telegram -- %u
-Icon=telegram
-Terminal=false
-StartupWMClass=TelegramDesktop
-Type=Application
-Categories=Chat;Network;InstantMessaging;Qt;
-MimeType=x-scheme-handler/tg;
-Keywords=tg;chat;im;messaging;messenger;sms;tdesktop;
-X-GNOME-UsesNotifications=true" > /etc/skel/.local/share/applications/telegram.desktop'
-
-	[[ ! -d "$HOME/.local" ]] && mkdir "$HOME/.local"
-	[[ ! -d "$HOME/.local/share" ]] && mkdir "$HOME/.local/share"
-	[[ ! -d "$HOME/.local/share/applications" ]] && mkdir "$HOME/.local/share/applications"
-	cp /etc/skel/.local/share/applications/telegram.desktop $HOME/.local/share/applications/telegram.desktop
+function flatpak_inst(){
+	if ! dpkg --get-selections | grep flatpak; then
+		"$ROOTDIR/flatpak.sh"
+	fi
+	flatpak install -y flathub $FLATPAK_ID
 }
 
 function desinstalar(){
-        rm -r $HOME/.local/share/TelegramDesktop
-        if [[ -d /opt/Telegram ]]; then
-			rm $HOME/.local/share/applications/appimagekit_*-Telegram_Desktop.desktop
-	        rm $HOME/.local/share/applications/telegram*.desktop
-	        sudo rm /etc/skel/.local/share/applications/telegram.desktop
-			sudo rm /usr/local/bin/telegram
-			sudo rm /usr/local/bin/telegram-desktop
-        	sudo rm -r /opt/Telegram
-        else
-        	sudo apt-get autoremove --purge telegram-desktop
-        fi
+	if dpkg --get-selections | grep flatpak; then
+		flatpak uninstall -y $FLATPAK_ID
+		flatpak uninstall -y --unused
+	fi
+
+	rm /home/$USUARIO/.local/share/applications/*elegram*.desktop
+	rm -r /home/$USUARIO/.local/share/TelegramDesktop
+	sudo rm /etc/skel/.local/share/applications/telegram.desktop /usr/local/bin/telegram*
+	sudo rm -r /opt/Telegram
 }
 
 ## LLAMADAS
 
-if [[ "$1" != "-d" ]]; then
-    descargar
-    iconoMenu
+check_root
+if [[ $1 == "-d" ]]; then
+	desinstalar
+elif [[ $1 == "-f" ]]; then
+	flatpak_inst
 else
-    desinstalar
+	instalador
 fi
 
 exit 0

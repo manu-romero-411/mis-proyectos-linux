@@ -1,13 +1,12 @@
 #!/bin/bash
-## INSTALADOR DE CHROME
-## FECHA DE CREACIÓN: 17 de mayo de 2020
-## FECHAS DE MODIFICACIÓN: 23 de octubre de 2020, 28 de agosto de 2022
+## INSTALADOR DE GIMP
+## FECHA DE CREACIÓN: 28 de agosto de 2022
 
 ## VARIABLES
 
 ROOTDIR=$(realpath $(dirname $0))
-FLATPAK_ID=com.google.Chrome
-APT_PACKAGES="google-chrome-stable"
+FLATPAK_ID=org.gimp.GIMP
+APT_PACKAGES="gimp"
 
 ## FUNCIONES
 
@@ -24,9 +23,6 @@ function check_root(){
 }
 
 function instalador(){
-	wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor | tee "/usr/share/keyrings/google-chrome.gpg" >/dev/null
-	echo "deb [signed-by=/usr/share/keyrings/google-chrome.gpg arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee "/etc/apt/sources.list.d/google-chrome.list"
-	apt-get update
 	apt-get -y install --autoremove --purge $APT_PACKAGES || error Error al instalar
 }
 
@@ -43,6 +39,7 @@ function desinstalar(){
 		flatpak uninstall -y --unused
 	fi
 	apt-get -y autoremove --purge $APT_PACKAGES
+
 }
 
 ## LLAMADAS

@@ -5,7 +5,7 @@
 
 ## VARIABLES
 
-ROOTDIR=$(realpath $(dirname $0)/..)
+ROOTDIR=$(realpath $(dirname $0))
 
 ## FUNCIONES
 
@@ -15,11 +15,13 @@ function error(){
 }
 
 function instalador(){
-	sudo apt-get -y install --autoremove --purge gedit gedit-plugins mousepad- || error
+	sudo apt-get -y install --autoremove --purge gedit gedit-plugins mousepad- || error Error al instalar
 }
 
 function config(){
-	$ROOTDIR/tweaks/gedit-config.sh
+	sudo apt-get -y install dconf-cli
+	cat "$ROOTDIR/post-install-configs/gedit/gedit-config.ini" | dconf load /org/gnome/gedit/
+	cat "$ROOTDIR/post-install-configs/gedit/gedit-root-config.ini" | sudo dconf load /org/gnome/gedit/
 }
 
 ## LLAMADAS

@@ -16,7 +16,7 @@ function check_root(){
 
 function instalador(){
 	if [[ "$XDG_CURRENT_DESKTOP" == "XFCE" ]]; then
-		if [[ "$(lsb_release -si)" == "Ubuntu" ]]; then
+		if [[ "$(lsb_release -si)" == "Ubuntu" ]] && [ $(lsb_release -sr | cut -d"." -f1) -lt 22 ]; then
 			INSTALAR=indicator-applet-complete indicator-application --no-install-recommends
 		elif [[ "$(lsb_release -si)" == "Debian" ]]; then
 			INSTALAR=xfce4-indicator-plugin
