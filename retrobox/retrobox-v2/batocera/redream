@@ -1,6 +1,0 @@
-#!/bin/bash
-## CARGADOR DE ROMS DE DREAMCAST PARA BATOCERA
-## FECHA: 7 de abril de 2020
-
-/opt/redream/redream "$1"
-exit 0

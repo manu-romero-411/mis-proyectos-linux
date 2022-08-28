@@ -1,11 +1,11 @@
 #!/bin/bash
 ## INSTALADOR DE PAQUETES DE DESARROLLO
 ## FECHA DE CREACIÓN: 1 de noviembre de 2020
-## FECHAS DE MODIFICACIÓN: 11 de abril de 2021
+## FECHAS DE MODIFICACIÓN: 11 de abril de 2021, 28 de agosto de 2022
 
 ## VARIABLES
 
-ROOTDIR=$(realpath $(dirname $0)/..)
+ROOTDIR=$(realpath $(dirname $0))
 
 ## FUNCIONES
 
@@ -22,7 +22,8 @@ function check_root(){
 
 function instalador(){
 	sudo apt-get -y install meld ghex shellcheck build-essential cmake make shellcheck jupyter
-	$ROOTDIR/insts/vscode.sh
+	$ROOTDIR/vscode.sh
+	$ROOTDIR/jetbrains-toolbox.sh
 }
 
 ## LLAMADAS

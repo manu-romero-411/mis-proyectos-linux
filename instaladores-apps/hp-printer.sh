@@ -9,7 +9,7 @@ function error(){
 }
 
 function instalador(){
-	sudo apt-get -y install hplip system-config-printer simple-scan || error
+	sudo apt-get -y install --autoremove --purge xsane- hplip system-config-printer simple-scan || error
 }
 
 instalador

@@ -5,7 +5,8 @@
 
 ## VARIABLES
 
-ROOTDIR=$(realpath $(dirname $0)/..)
+ROOTDIR=$(realpath $(dirname $0))
+FLATPAK_ID=com.discordapp.Discord
 
 ## FUNCIONES
 
@@ -14,38 +15,51 @@ function error(){
 	exit 1
 }
 
-function descargar_linuxGeneric(){
-	sudo wget -O- "https://discord.com/api/download?platform=linux&format=tar.gz" | sudo tar xz -C /opt
-        sudo chown -R $(whoami):$(whoami) /opt/Discord /opt/Discord/*
-	sudo ln -s /opt/Discord/Discord /usr/local/bin/discord
-	sudo chown root:root /opt/Discord/chrome-sandbox
-	sudo chmod 4755 /opt/Discord/chrome-sandbox
-        sudo cp $ROOTDIR/files/discord.desktop /usr/share/applications/discord-linux.desktop
+function check_root(){
+        if [[ $(whoami) != root ]]; then
+                echo "[MALAMENTE] No eres root"
+                error
+        fi
 }
 
 function descargar_debian(){
-	(DISCORDDEB="$(mktemp)" &&
-	wget -O $DISCORDDEB https://discord.com/api/download?platform=linux&format=deb &&
-	sudo dpkg -i "$DISCORDDEB" &&
-	sudo apt-get -f -y install &&
-	rm -f "$DISCORDDEB") || error Ha ocurrido algo
+	DISCORDDEB="$(mktemp)"
+	if dpkg --get-selections | grep discord > /dev/null; then
+		error Ya está instalado
+	fi
+	wget -O "$DISCORDDEB" 'https://discord.com/api/download?platform=linux&format=deb' && sudo dpkg -i "$DISCORDDEB"
+	sudo apt-get -f -y install
+	rm -f "$DISCORDDEB"
+}
+
+function flatpak_ins(){
+	if ! dpkg --get-selections | grep flatpak; then
+		$ROOTDIR/flatpak.sh
+	fi
+	flatpak install -y flathub $FLATPAK_ID
 }
 
 function desinstalar(){
-        sudo rm /usr/share/applications/discord-linux.desktop
-        rm -r $HOME/.config/discord
-	sudo rm /usr/local/bin/discord
-        sudo rm -r /opt/Discord
+        if dpkg --get-selections | grep flatpak; then
+                flatpak uninstall -y $FLATPAK_ID
+                flatpak uninstall -y --unused
+        fi
+
+        rm -r /home/$(id -nu 1000)/.config/discord
+	apt-get -y autoremove --purge discord
 }
 
 ## LLAMADAS
 
+check_root
 if [[ "$1" != "-d" ]]; then
-        if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
-                descargar_debian
-        else   
-                descargar_linuxGeneric
-        fi
+	if [[ "$1" == "-f" ]]; then
+		flatpak_ins
+	else
+		if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
+			descargar_debian
+		fi
+	fi
 else
     desinstalar
 fi

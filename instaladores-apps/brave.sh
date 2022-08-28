@@ -14,10 +14,10 @@ function check_root(){
 	fi
 }
 
-check_root
-apt install -y apt-transport-https curl
-curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add - || error
-echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | tee /etc/apt/sources.list.d/brave-browser-release.list || error
-apt update || error
-apt install -y brave-browser || error
+#check_root
+sudo apt-get install -y apt-transport-https curl
+curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | gpg --dearmor | sudo tee /usr/share/keyrings/brave-browser-release.gpg >/dev/null
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-release.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list >/dev/null
+sudo apt-get update || error Fallo al actualizar
+sudo apt-get install -y brave-browser || error Fallo al instalar
 exit 0

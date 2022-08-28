@@ -14,10 +14,14 @@ function check_root(){
 	fi
 }
 
-#check_root
-wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-sudo sh -c "echo 'deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib' > /etc/apt/sources.list.d/virtualbox.list"
-sudo apt-get update
-sudo apt-get install -y virtualbox-6.1
+function instalar(){
+	wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | gpg --dearmor > /usr/share/keyrings/oracle_vbox_2016.gpg
+	wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | gpg --dearmor > /usr/share/keyrings/oracle_vbox.gpg
+	echo "deb [signed-by=/usr/share/keyrings/oracle_vbox_2016.gpg arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+	sudo apt-get update
+	sudo apt-get install -y virtualbox-6.1
+}
+
+check_root
+instalar
 exit 0

@@ -1,7 +1,7 @@
 #!/bin/bash
 ## INSTALADOR DE SPOTIFY
 ## FECHA DE CREACIÓN: 6 de octubre de 2020
-## FECHAS DE MODIFICACIÓN:
+## FECHAS DE MODIFICACIÓN: 28 de agosto de 2022
 
 function error(){
 	echo "[ERROR] $@. F"
@@ -16,23 +16,13 @@ function check_root(){
 }
 
 function instalador(){
-#function preinst(){
 	sudo apt-get install -y curl
-	curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D1742AD60D811D58
-	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-#	touch ~/.inst
-#}
-
-#function inst(){
-	sudo apt update
-	sudo apt install -y spotify-client || error
-#	rm ~/.inst
+	curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | gpg --dearmor | sudo tee "/usr/share/keyrings/spotify.gpg" >/dev/null
+	echo "deb [signed-by=/usr/share/keyrings/spotify.gpg] http://repository.spotify.com stable non-free" | sudo tee "/etc/apt/sources.list.d/spotify.list"
+	sudo apt-get update
+	sudo apt-get install -y spotify-client || error Ha ocurrido algo
 }
-#check_root
-#if [[ ! -f ~/.inst ]]; then
-#	preinst
-#fi
+
 instalador
 
 exit 0
