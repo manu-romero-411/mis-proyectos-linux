@@ -1,0 +1,15 @@
+#!/bin/bash
+
+## CORRECCIÓN DE LOS MILISEGUNDOS
+milisec=$(date +%N | cut -c 1-3)
+sleep 0.$((1000 - ${milisec#0}))
+
+if [ $(date +%S) -gt 55 ]; then
+	exit 1
+else
+	while [ $(date +%S) -lt 54 ]; do
+		sleep 1
+	done
+	play /home/manuel/.sounds/bbc-pip.ogg
+	exit 0
+fi
