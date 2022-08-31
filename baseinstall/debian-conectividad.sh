@@ -1,11 +1,10 @@
 #!/bin/bash
-## INSTALADOR DE KDE PLASMA EN DEBIAN
+## INSTALADOR DE COMPONENTES DE CONECTIVIDAD: REDES Y BLUETOOTH
 ## FECHA: 31 de agosto de 2022
 
 ## VARIABLES
 
 ROOTDIR=$(realpath $(dirname $0))
-INSTALAR="desktop-base plasma-desktop"
 
 ## FUNCIONES
 
@@ -23,12 +22,10 @@ function check_root(){
 
 function instalar(){
 
+	INSTALAR="network-manager network-manager-gnome net-tools blueman bluez"
+
 	# ORDEN DE INSTALACIÓN
 	apt-get -y install $INSTALAR
-}
-
-function desinstalar()
-	apt-get -y autoremove --purge $INSTALAR
 }
 
 check_root
