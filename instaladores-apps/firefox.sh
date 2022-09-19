@@ -1,5 +1,6 @@
 #!/bin/bash
 ## INSTALADOR DE FIREFOX
+## INSTALABLE EN: arm64 x86_64 x86
 ## FECHA DE CREACIÓN: 23 de octubre de 2020
 ## FECHAS DE MODIFICACIÓN: 28 de agosto de 2022
 

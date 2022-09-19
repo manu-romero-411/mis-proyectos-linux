@@ -1,5 +1,6 @@
 #!/bin/bash
 ## INSTALADOR DE SPOTIFY
+## INSTALABLE EN: x86_64
 ## FECHA DE CREACIÓN: 6 de octubre de 2020
 ## FECHAS DE MODIFICACIÓN: 28 de agosto de 2022
 
