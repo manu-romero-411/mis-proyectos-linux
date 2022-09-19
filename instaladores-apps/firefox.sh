@@ -5,7 +5,7 @@
 
 ## VARIABLES
 
-ROOTDIR=$(realpath $(dirname $0)/..)
+ROOTDIR=$(realpath $(dirname $0))
 
 ## FUNCIONES
 
@@ -22,6 +22,9 @@ function descargar(){
 		if [ $(lsb_release -sr | cut -d"." -f1) -ge 22 ]; then
 			sudo snap remove firefox
 			sudo add-apt-repository ppa:mozillateam/ppa -y
+			sudo mkdir -p /etc/apt/preferences.d/
+			sudo cp $ROOTDIR/aux-files/firefox/mozillateamppa /etc/apt/preferences.d/
+			sudo chmod 644 /etc/apt/preferences.d/mozillateamppa
 			sudo apt-get update
 			sudo apt-get -y -t 'o=LP-PPA-mozillateam' install firefox firefox-locale-es
 		else
