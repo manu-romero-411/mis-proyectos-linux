@@ -22,6 +22,7 @@ function descargar(){
 		if [ $(lsb_release -sr | cut -d"." -f1) -ge 22 ]; then
 			sudo snap remove firefox
 			sudo add-apt-repository ppa:mozillateam/ppa -y
+			sudo cp "$ROOTDIR/instaladores-apps/aux-files/firefox/99mozilla" "/etc/apt/preferences.d/"
 			sudo apt-get update
 			sudo apt-get -y -t 'o=LP-PPA-mozillateam' install firefox firefox-locale-es
 		else
@@ -49,8 +50,8 @@ function descargar_tar_i386(){
 function instalar_tar(){
        	sudo chown -R $(whoami):$(whoami) /opt/firefox /opt/firefox/*
 	sudo ln -s "/opt/firefox/firefox" "/usr/local/bin/firefox"
-	sudo cp "$ROOTDIR/aux-files/firefox/firefox-linux.desktop" "/usr/share/applications/firefox-linux.desktop"
-	sudo cp "$ROOTDIR/aux-files/firefox/firefox-uninstall.sh" "/opt/firefox/firefox-uninstall.sh"
+	sudo cp "$ROOTDIR/instaladores-apps/aux-files/firefox/firefox-linux.desktop" "/usr/share/applications/firefox-linux.desktop"
+	sudo cp "$ROOTDIR/instaladores-apps/aux-files/firefox/firefox-uninstall.sh" "/opt/firefox/firefox-uninstall.sh"
 	sudo chmod 755 /opt/firefox/firefox-uninstall.sh
 }
 
