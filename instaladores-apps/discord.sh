@@ -1,5 +1,6 @@
 #!/bin/bash
 ## INSTALADOR DE DISCORD
+## INSTALABLE EN: x86_64
 ## FECHA DE CREACIÓN: 23 de octubre de 2020
 ## FECHAS DE MODIFICACIÓN:
 
