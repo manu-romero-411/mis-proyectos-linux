@@ -1,0 +1,8 @@
+#!/bin/bash
+## GENERAR UNA CLAVE SSH, PRINCIPALMENTE PARA GITHUB
+## FECHA: 31 de diciembre de 2022
+
+ssh-keygen -t ed25519 -C "manu4.2012@gmail.com" -f "$HOME/.ssh/id_ed25519_github" -q -N ""
+eval $(ssh-agent)
+ssh-add "$HOME/.ssh/id_ed25519_github"
+cat "$HOME/.ssh/id_ed25519_github.pub"

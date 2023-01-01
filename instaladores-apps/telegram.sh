@@ -31,8 +31,9 @@ function instalador(){
 	ln -s "/opt/Telegram/Telegram" "/usr/local/bin/telegram-desktop"
 	cp "$ROOTDIR/aux-files/telegram/telegram-uninstall.sh" "/opt/Telegram/telegram-uninstall.sh"
 	chmod 755 "/opt/Telegram/telegram-uninstall.sh"
-	mkdir -p "/etc/skel/.local/share/applications"
-	cp "$ROOTDIR/aux-files/telegram/telegram-desktop.desktop" "/etc/skel/.local/share/applications"
+	#mkdir -p "/etc/skel/.local/share/applications"
+	mkdir -p "$HOME/.config/autostart"
+	cp "$ROOTDIR/aux-files/telegram/telegram-desktop.desktop" "$HOME/Escritorio"
 	telegram & exit 0
 }
 
@@ -50,8 +51,10 @@ function desinstalar(){
 	fi
 
 	rm /home/$USUARIO/.local/share/applications/*elegram*.desktop
+	rm /home/$USUARIO/.config/autostart/*elegram*.desktop
 	rm -r /home/$USUARIO/.local/share/TelegramDesktop
-	sudo rm /etc/skel/.local/share/applications/telegram.desktop /usr/local/bin/telegram*
+	#sudo rm /etc/skel/.local/share/applications/telegram.desktop
+	sudo rm /usr/local/bin/telegram*
 	sudo rm -r /opt/Telegram
 }
 

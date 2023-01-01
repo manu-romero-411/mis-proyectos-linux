@@ -21,8 +21,8 @@ function instalador(){
 function config(){
 	[[ ! -d "$HOME/.config/fontconfig/" ]] && mkdir "$HOME/.config/fontconfig/"
 	[[ ! -d "$HOME/.config/fontconfig/conf.d" ]] && mkdir "$HOME/.config/fontconfig/conf.d"
-	echo "<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+	echo "<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
 <fontconfig>
   <alias>
     <family>serif</family>

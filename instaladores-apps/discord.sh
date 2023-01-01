@@ -16,10 +16,10 @@ function error(){
 }
 
 function check_root(){
-        if [[ $(whoami) != root ]]; then
-                echo "[MALAMENTE] No eres root"
-                error
-        fi
+	if [[ $(whoami) != root ]]; then
+		    echo "[MALAMENTE] No eres root"
+		    error
+	fi
 }
 
 function descargar_debian(){
@@ -40,12 +40,12 @@ function flatpak_ins(){
 }
 
 function desinstalar(){
-        if dpkg --get-selections | grep flatpak; then
-                flatpak uninstall -y $FLATPAK_ID
-                flatpak uninstall -y --unused
-        fi
+    if dpkg --get-selections | grep flatpak; then
+            flatpak uninstall -y $FLATPAK_ID
+            flatpak uninstall -y --unused
+    fi
 
-        rm -r /home/$(id -nu 1000)/.config/discord
+    rm -r /home/$(id -nu 1000)/.config/discord
 	apt-get -y autoremove --purge discord
 }
 

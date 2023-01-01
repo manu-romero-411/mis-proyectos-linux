@@ -15,7 +15,7 @@ function check_root(){
 }
 
 function instalar(){
-	apt-get -y install flatpak gnome-software-plugin-snap || error Error al instalar
+	apt-get -y install flatpak gnome-software-plugin-flatpak || error Error al instalar
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
@@ -25,6 +25,7 @@ function desinstalar(){
 		USUARIO=$(id -nu 1000)
 	else
 		USUARIO=$SUDO_USER
+	fi
 	rm -r /home/$USUARIO/.var/apps
 	rm -r /home/$USUARIO/.local/share/flatpak
 	rm -r /home/$USUARIO/var/lib/flatpak

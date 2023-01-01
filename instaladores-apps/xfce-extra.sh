@@ -16,7 +16,19 @@ function check_root(){
 }
 
 function instalador(){
-	sudo apt-get -y install libxfce4ui-utils catfish xfce4-taskmanager xfce4-appfinder xfce4-whiskermenu-plugin xfce4-places-plugin xfce4-screenshooter xfce4-power-manager xfce4-notifyd xfce4-pulseaudio-plugin || error No se han podido instalar los paquetes
+	for i in \
+	libxfce4ui-utils \
+	catfish \
+	xfce4-taskmanager \
+	xfce4-appfinder \
+	xfce4-whiskermenu-plugin \
+	xfce4-places-plugin \
+	xfce4-screenshooter \
+	xfce4-power-manager \
+	xfce4-notifyd \
+	xfce4-pulseaudio-plugin; do
+		sudo apt-get -y install $i || error No se han podido instalar los paquetes
+	done
 }
 
 #check_root
