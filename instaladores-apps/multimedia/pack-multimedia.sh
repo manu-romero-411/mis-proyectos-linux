@@ -15,7 +15,9 @@ function error(){
 }
 
 function instalador(){
-	sudo apt-get -y install --autoremove --purge vlc rhythmbox cheese pavucontrol timidity soundconverter parole- exfalso- quodlibet- || error
+	"$ROOTDIR/vlc.sh"
+	"$ROOTDIR/soundconverter.sh"
+	sudo apt-get -y install --autoremove --purge rhythmbox cheese pavucontrol timidity parole- exfalso- quodlibet- || error
 }
 
 function instaladorAppsAvanzadas(){

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+chdman createcd -i "$i" -o "${i%.*}.chd"

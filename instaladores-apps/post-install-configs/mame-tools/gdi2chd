@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for i in $PWD/*.gdi; do
+	chdman createcd -i "$i" -o "${i%.*}.chd"
+done

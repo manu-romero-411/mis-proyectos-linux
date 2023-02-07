@@ -21,9 +21,10 @@ function check_root(){
 }
 
 function instalador(){
-	sudo apt-get -y install meld ghex shellcheck build-essential cmake make shellcheck jupyter
-	$ROOTDIR/vscode.sh
-	$ROOTDIR/jetbrains-toolbox.sh
+	sudo apt-get -y install ghex shellcheck build-essential cmake make shellcheck jupyter
+	"$ROOTDIR/meld.sh"
+	"$ROOTDIR/vscode.sh"
+	"$ROOTDIR/jetbrains-toolbox.sh"
 }
 
 ## LLAMADAS

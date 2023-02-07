@@ -35,7 +35,7 @@ function instalar(){
 	[[ ! -d "$HOME/.local/share" ]] && mkdir "$HOME/.local/share"
 	[[ ! -d "$HOME/.local/share/applications" ]] && mkdir "$HOME/.local/share/applications"
 	lista_non
-	cp $ROOTDIR/papirus/*.desktop "$HOME/.local/share/applications"
+	#cp $ROOTDIR/papirus/*.desktop "$HOME/.local/share/applications"
 	if [[ $1 == "-r" ]]; then
 		excluir $@
 	fi
@@ -53,11 +53,11 @@ function instalar(){
 
 function iconos_extra(){
 	[[ ! -d "$HOME/.icons" ]] && mkdir "$HOME/.icons/"
-	cp -r "$ROOTDIR/non-papirus/app-icons" "$HOME/.icons/app-icons"
+	#cp -r "$ROOTDIR/non-papirus/app-icons" "$HOME/.icons/app-icons"
 }
 
 function instalar_generic_non(){
-	cp "$ROOTDIR/non-papirus/webapp-$1.desktop" "$HOME/.local/share/applications"
+	#cp "$ROOTDIR/non-papirus/webapp-$1.desktop" "$HOME/.local/share/applications"
 }
 
 function lista_non(){
