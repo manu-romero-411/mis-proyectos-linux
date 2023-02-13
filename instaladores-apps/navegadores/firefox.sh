@@ -54,9 +54,10 @@ function descargar_tar_i386() {
 function instalar_tar() {
 	sudo chown -R $(whoami):$(whoami) /opt/firefox /opt/firefox/*
 	sudo ln -s "/opt/firefox/firefox" "/usr/local/bin/firefox"
-	sudo cp "$ROOTDIR/instaladores-apps/aux-files/firefox/firefox-linux.desktop" "/usr/share/applications/firefox-linux.desktop"
-	sudo cp "$ROOTDIR/instaladores-apps/aux-files/firefox/firefox-uninstall.sh" "/opt/firefox/firefox-uninstall.sh"
+	sudo cp "$ROOTDIR/aux-files/firefox/firefox-linux.desktop" "/usr/share/applications/firefox-linux.desktop"
+	sudo cp "$ROOTDIR/aux-files/firefox/firefox-uninstall.sh" "/opt/firefox/firefox-uninstall.sh"
 	sudo chmod 755 /opt/firefox/firefox-uninstall.sh
+	sudo apt-get -y install libdbus-glib-1-2
 }
 
 function esr_debian_otherarch() {
