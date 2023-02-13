@@ -33,7 +33,7 @@ function instalar(){
 	apt-get -y install --no-install-recommends --autoremove --purge $INSTALAR
 }
 
-function desinstalar()
+function desinstalar(){
 	apt-get -y autoremove --purge xfce4-* xfwm4 thunar* nemo*
 }
 
