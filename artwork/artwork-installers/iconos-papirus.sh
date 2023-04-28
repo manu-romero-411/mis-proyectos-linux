@@ -26,14 +26,15 @@ function instalar(){
 		#wget -qO- https://download.opensuse.org/repositories/home:SmartFinn:hardcode-tray/Debian_$(lsb_release -rs)/Release.key | sudo apt-key add -
 
 		echo "deb [signed-by=/usr/share/keyrings/papirus.gpg] http://ppa.launchpad.net/papirus/papirus/ubuntu focal main" | tee "/etc/apt/sources.list.d/papirus-ppa.list"
-		sudo apt-get -y install dirmngr
-		sudo gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/papirus.gpg --keyserver keyserver.ubuntu.com --recv E58A9D36647CAE7F
-		sudo chmod 644 /usr/share/keyrings/papirus.gpg
+		apt-get -y install dirmngr
+		mkdir -p /root/.gnupg
+		gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/papirus.gpg --keyserver keyserver.ubuntu.com --recv E58A9D36647CAE7F
+		chmod 644 /usr/share/keyrings/papirus.gpg
 	else
 		sudo add-apt-repository -y ppa:papirus/papirus
 	fi
 	sudo apt-get update
-        sudo apt-get -y install papirus-icon-theme
+        sudo apt-get -y install papirus-icon-theme papirus-folders
         papirus-folders -C teal
 }
 
