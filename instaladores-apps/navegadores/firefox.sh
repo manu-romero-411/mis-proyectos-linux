@@ -28,6 +28,7 @@ function descargar() {
 			sudo chmod 644 /etc/apt/preferences.d/99mozilla
 
 			sudo apt-get update
+			sudo apt-get autoremove --purge firefox
 			sudo apt-get -y -t 'o=LP-PPA-mozillateam' install firefox firefox-locale-es
 		else
 			sudo apt-get -y install firefox firefox-locale-es
