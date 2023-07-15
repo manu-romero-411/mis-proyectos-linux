@@ -24,7 +24,7 @@ function descargar() {
 			sudo snap remove firefox
 			sudo add-apt-repository ppa:mozillateam/ppa -y
 			sudo mkdir -p /etc/apt/preferences.d/
-			sudo cp "$ROOTDIR/instaladores-apps/aux-files/firefox/99mozilla" "/etc/apt/preferences.d/"
+			sudo cp "$ROOTDIR/aux-files/firefox/99mozilla" "/etc/apt/preferences.d/"
 			sudo chmod 644 /etc/apt/preferences.d/99mozilla
 
 			sudo apt-get update
