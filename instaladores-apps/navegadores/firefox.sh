@@ -24,7 +24,7 @@ function descargar() {
 			sudo snap remove firefox
 			sudo add-apt-repository ppa:mozillateam/ppa -y
 			sudo mkdir -p /etc/apt/preferences.d/
-			sudo cp "$ROOTDIR/instaladores-apps/aux-files/firefox/99mozilla" "/etc/apt/preferences.d/"
+			sudo cp "$ROOTDIR/aux-files/firefox/99mozilla" "/etc/apt/preferences.d/"
 			sudo chmod 644 /etc/apt/preferences.d/99mozilla
 
 			sudo apt-get update
@@ -58,6 +58,11 @@ function instalar_tar() {
 	sudo cp "$ROOTDIR/aux-files/firefox/firefox-uninstall.sh" "/opt/firefox/firefox-uninstall.sh"
 	sudo chmod 755 /opt/firefox/firefox-uninstall.sh
 	sudo apt-get -y install libdbus-glib-1-2
+	for i in /opt/firefox/browser/chrome/icons; do
+		SIZE=$(echo $i | rev | cut -d"." -f2 | cut -d"t" -f1 |rev)
+		sudo cp "$i" "/usr/share/icons/hicolor/${SIZE}x${SIZE}/apps/firefox.png"
+	done
+	gtk-update-icon-cache /usr/share/icons/hicolor/.
 }
 
 function esr_debian_otherarch() {

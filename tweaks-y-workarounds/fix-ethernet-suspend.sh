@@ -25,7 +25,7 @@ function check_root(){
 }
 
 function config(){
-	sudo su -c '#!/bin/bash
+	echo '#!/bin/bash
 
 PROGNAME=$(basename "$0")
 state=$1
@@ -42,7 +42,7 @@ if [[ $state == post ]]; then
     && log "Removed r8169" \\
     && modprobe -i r8169 \\
     && log "Inserted r8169"
-fi' /lib/systemd/system-sleep/r8169-refresh
+fi' | sudo tee /lib/systemd/system-sleep/r8169-refresh
 	sudo chmod 755 /lib/systemd/system-sleep/r8169-refresh
 }
 

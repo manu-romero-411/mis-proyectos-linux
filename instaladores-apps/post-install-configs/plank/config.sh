@@ -5,7 +5,7 @@
 
 ## VARIABLES
 
-ROOTDIR=$(realpath $(dirname $0)/..)
+ROOTDIR=$(realpath $(dirname $0))
 
 ## FUNCIONES
 
@@ -23,7 +23,7 @@ function root_checker(){
 
 function icono_mostrar_escritorio(){
 	[[ ! -d "$HOME/.local/share/plank" ]] && mkdir "$HOME/.local/share/plank"
-	cp "$(realpath $(dirname $0)/..)/files/plank/mostrar-escritorio.desktop" "$HOME/.local/share/plank"
+	cp "$ROOTDIR/mostrar-escritorio.desktop" "$HOME/.local/share/plank"
 }
 
 function configuracion_predeterminada(){

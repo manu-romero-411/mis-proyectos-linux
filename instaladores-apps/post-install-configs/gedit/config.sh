@@ -7,9 +7,9 @@ ROOTDIR=$(realpath $(dirname $0)/../)
 
 function config(){
 if [[ "$(whoami)" != "root" ]]; then
-	cat "$ROOTDIR/files/gedit-config.ini" | dconf load /org/gnome/gedit/
+	cat "$ROOTDIR/gedit/gedit-config.ini" | dconf load /org/gnome/gedit/
 else
-	cat "$ROOTDIR/files/gedit-root-config.ini" | dconf load /org/gnome/gedit/
+	cat "$ROOTDIR/gedit/gedit-root-config.ini" | dconf load /org/gnome/gedit/
 fi
 }
 
