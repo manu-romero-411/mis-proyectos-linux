@@ -63,6 +63,8 @@ function instalar_tar() {
 		sudo cp "$i" "/usr/share/icons/hicolor/${SIZE}x${SIZE}/apps/firefox.png"
 	done
 	gtk-update-icon-cache /usr/share/icons/hicolor/.
+	sudo update-alternatives --install /usr/bin/gnome-www-browser gnome-www-browser /usr/local/bin/firefox 500
+	sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/local/bin/firefox 500
 }
 
 function esr_debian_otherarch() {
